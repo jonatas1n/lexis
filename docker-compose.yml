@@ -1,0 +1,11 @@
+services:
+  api:
+    build: ./api
+    container_name: legislative_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    entrypoint: ["/app/run.sh"]

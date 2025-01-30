@@ -7,6 +7,9 @@ attach:
 logs:
 	docker compose logs -f
 
+stop:
+	docker compose stop
+
 install:
 	pip install -r requirements.txt
 

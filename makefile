@@ -2,7 +2,7 @@ up:
 	docker compose up -d
 
 attach:
-	docker compose exec legislative_api bash
+	docker compose exec api bash
 
 logs:
 	docker compose logs -f

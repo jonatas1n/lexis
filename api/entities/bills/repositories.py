@@ -8,4 +8,6 @@ class BillRepository:
     @staticmethod
     def read_csv():
         with open(CSV_FILE, newline="", encoding="utf-8") as file:
-            return list(csv.DictReader(file))
+            reader = csv.DictReader(file)
+            bills = [{**row, "id": int(row["id"])} for row in reader]
+            return bills

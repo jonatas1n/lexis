@@ -2,6 +2,8 @@ from fastapi import HTTPException
 from .services import BillServices
 
 NOT_FOUND_MESSAGE = "Bill not found"
+
+
 class BillController:
     @staticmethod
     def get_all_bills():

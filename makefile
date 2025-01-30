@@ -4,5 +4,8 @@ install:
 lint:
 	black .
 
+api:
+	./fastapi dev ./api/src/api.py
+
 test:
 	pytest

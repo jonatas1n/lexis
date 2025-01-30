@@ -12,10 +12,11 @@ app.include_router(router, prefix="/bills")
 
 client = TestClient(app)
 
+
 def test_bills_repository_read_csv():
     expected_result = [
-        {"id": "1", "name": "Test Bill", "amount": "100.0"},
-        {"id": "2", "name": "Another Bill", "amount": "200.0"},
+        {"id": 1, "name": "Test Bill", "amount": "100.0"},
+        {"id": 2, "name": "Another Bill", "amount": "200.0"},
     ]
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -26,8 +27,8 @@ def test_bills_repository_read_csv():
 
 def test_bills_services_get_all():
     expected_result = [
-        {"id": "1", "name": "Test Bill", "amount": "100.0"},
-        {"id": "2", "name": "Another Bill", "amount": "200.0"},
+        {"id": 1, "name": "Test Bill", "amount": "100.0"},
+        {"id": 2, "name": "Another Bill", "amount": "200.0"},
     ]
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -35,17 +36,9 @@ def test_bills_services_get_all():
             result = BillServices.get_all()
             assert result == expected_result
 
+
 def test_bills_services_get_bill():
-    expected_result = {"id": "1", "name": "Test Bill", "amount": "100.0"}
-    bill_id = "1"
-
-    with patch("builtins.open", mock_open(read_data=mock_csv_data)):
-        with patch("api.entities.bills.repositories.CSV_FILE", CSV_FILE):
-            result = BillServices.get_by_id(bill_id)
-            assert result == expected_result
-
-def test_bills_services_get_bill_with_integer_input():
-    expected_result = {"id": "1", "name": "Test Bill", "amount": "100.0"}
+    expected_result = {"id": 1, "name": "Test Bill", "amount": "100.0"}
     bill_id = 1
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -53,10 +46,11 @@ def test_bills_services_get_bill_with_integer_input():
             result = BillServices.get_by_id(bill_id)
             assert result == expected_result
 
+
 def test_bills_controller_get_all_bills():
     expected_result = [
-        {"id": "1", "name": "Test Bill", "amount": "100.0"},
-        {"id": "2", "name": "Another Bill", "amount": "200.0"},
+        {"id": 1, "name": "Test Bill", "amount": "100.0"},
+        {"id": 2, "name": "Another Bill", "amount": "200.0"},
     ]
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -64,14 +58,16 @@ def test_bills_controller_get_all_bills():
             result = BillController.get_all_bills()
             assert result == expected_result
 
+
 def test_bills_controller_get_bill():
-    expected_result = {"id": "1", "name": "Test Bill", "amount": "100.0"}
+    expected_result = {"id": 1, "name": "Test Bill", "amount": "100.0"}
     bill_id = 1
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
         with patch("api.entities.bills.repositories.CSV_FILE", CSV_FILE):
             result = BillController.get_bill(bill_id)
             assert result == expected_result
+
 
 def test_bills_controller_get_bill_empty():
     bill_id = 3
@@ -84,12 +80,14 @@ def test_bills_controller_get_bill_empty():
                 assert e.status_code == expected_status_code
                 assert e.detail == NOT_FOUND_MESSAGE
 
+
 def test_bills_routes_get_all_bills():
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
         with patch("api.entities.bills.repositories.CSV_FILE", CSV_FILE):
             response = client.get("/bills/")
             assert response.status_code == 200
             assert isinstance(response.json(), list)
+
 
 def test_bills_routes_get_bill():
     bill_id = 1

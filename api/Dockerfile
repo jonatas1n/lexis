@@ -7,8 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN ls -l
+RUN chmod +x /app/run.sh
 
-EXPOSE 8000
-
-ENTRYPOINT ["./run.sh"]
+ENTRYPOINT ["/app/run.sh"]

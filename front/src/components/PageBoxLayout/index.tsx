@@ -7,7 +7,7 @@ export const PageBoxLayout = ({ children }: PropsWithChildren) => {
     <Grid w="100vh">
       <Grid gap="1rem" templateRows="3rem calc(100vh - 6rem)">
         <GridItem alignContent="center">
-          <Link as={GridItem} href="/">
+          <Link href="/">
             <FaArrowLeft /> <Text fontVariant="all-small-caps">Back</Text>
           </Link>
         </GridItem>

@@ -29,8 +29,7 @@ export const BillsPage = () => {
     () => query.get(SEARCH_QUERY_PARAM) ?? "",
     [query]
   );
-  const selectedBill =
-    query.get(SELECTED_BILL_QUERY_PARAM) ?? undefined;
+  const selectedBill = query.get(SELECTED_BILL_QUERY_PARAM) ?? undefined;
   const [searchTerm, setSearchTerm] = useState(querySearchTerm);
 
   const updateQuery = useCallback(
@@ -75,10 +74,7 @@ export const BillsPage = () => {
 
   return (
     <PageBoxLayout>
-      <BillsModal
-        billId={selectedBill}
-        onClose={clearTerm}
-      />
+      <BillsModal billId={selectedBill} onClose={clearSelected} />
       <Flex align="center" justify="space-between" mb={4} gap={4}>
         <Text fontWeight="800" fontSize={24}>
           {PAGE_TITLE}
@@ -95,7 +91,14 @@ export const BillsPage = () => {
       </Flex>
       <Grid gap={2} alignContent="flex-start" h="100%" overflowY="auto">
         {!isLoading ? (
-          bills?.map((bill) => <BillItem onClick={() => selectBill(bill.id.toString())} showId bill={bill} key={bill.id} />)
+          bills?.map((bill) => (
+            <BillItem
+              onClick={() => selectBill(bill.id.toString())}
+              showId
+              bill={bill}
+              key={bill.id}
+            />
+          ))
         ) : (
           <Flex justify="center" align="center">
             <Spinner />

@@ -18,9 +18,8 @@ class BillServices:
             return True
 
         def increment_bill(bill: dict):
-            count_votes = len(
-                [vote for vote in votes if vote['bill_id'] == bill['id']])
-            bill['votes'] = count_votes
+            count_votes = len([vote for vote in votes if vote["bill_id"] == bill["id"]])
+            bill["votes"] = count_votes
             return bill
 
         bills = [increment_bill(bill) for bill in bills if filter_bill(bill)]

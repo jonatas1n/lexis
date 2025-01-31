@@ -26,7 +26,7 @@ class LegislatorServices:
             return legislator
 
         def filter_legislator(legislator: dict):
-            if name and name.lower() not in legislator["name"].lower:
+            if name and name.lower() not in legislator["name"].lower():
                 return False
             return True
 
@@ -40,7 +40,8 @@ class LegislatorServices:
     def get_by_id(legislator_id):
         legislator_id = int(legislator_id)
         legislators = LegislatorRepository.read_csv()
-        return next(
+        votes_results = VotesResultRepository.read_csv()
+        legislator = next(
             (
                 legislator
                 for legislator in legislators
@@ -48,3 +49,14 @@ class LegislatorServices:
             ),
             None,
         )
+
+        votes_counts = {"supported_bills": 0, "opposed_bills": 0}
+        for vote_result in votes_results:
+            if vote_result["legislator_id"] != legislator_id:
+                continue
+            vote_type_key = (
+                "supported_bills" if vote_result["vote_type"] == 1 else "opposed_bills"
+            )
+            votes_counts[vote_type_key] += 1
+        legislator = {**legislator, **votes_counts}
+        return legislator

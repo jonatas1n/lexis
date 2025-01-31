@@ -16,14 +16,18 @@ class BillServices:
 
         for index, bill in enumerate(bills):
             bills[index] = {**bill, "opposed_votes": 0, "support_votes": 0}
-            bill_votes = [vote for vote in votes if vote["bill_id"] == bill["id"]]
+            bill_votes = [vote['id'] for vote in votes if vote["bill_id"] == bill["id"]]
             if not bill_votes:
                 continue
+
             bill_votes_results = [
-                vote for vote in votes_results if vote["id"] in bill_votes
+                vote_result
+                for vote_result in votes_results
+                if vote_result["vote_id"] in bill_votes
             ]
             if not bill_votes_results:
                 continue
+
             for vote in bill_votes_results:
                 vote_type = (
                     "support_votes" if vote["vote_type"] == 1 else "opposed_votes"

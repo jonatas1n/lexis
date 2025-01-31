@@ -1,6 +1,7 @@
 from typing import Optional
 
 from ..votes.repositories import VoteRepository
+from ..votes_results.repositories import VotesResultRepository
 from .repositories import BillRepository
 
 
@@ -11,18 +12,30 @@ class BillServices:
     ):
         bills = BillRepository.read_csv()
         votes = VoteRepository.read_csv()
+        votes_results = VotesResultRepository.read_csv()
+
+        for index, bill in enumerate(bills):
+            bills[index] = {**bill, "opposed_votes": 0, "support_votes": 0}
+            bill_votes = [vote for vote in votes if vote["bill_id"] == bill["id"]]
+            if not bill_votes:
+                continue
+            bill_votes_results = [
+                vote for vote in votes_results if vote["id"] in bill_votes
+            ]
+            if not bill_votes_results:
+                continue
+            for vote in bill_votes_results:
+                vote_type = (
+                    "support_votes" if vote["vote_type"] == 1 else "opposed_votes"
+                )
+                bills[index][vote_type] += 1
 
         def filter_bill(bill: dict):
             if title and title.lower() not in bill["title"].lower():
                 return False
             return True
 
-        def increment_bill(bill: dict):
-            count_votes = len([vote for vote in votes if vote["bill_id"] == bill["id"]])
-            bill["votes"] = count_votes
-            return bill
-
-        bills = [increment_bill(bill) for bill in bills if filter_bill(bill)]
+        bills = [bill for bill in bills if filter_bill(bill)]
         return bills
 
     @staticmethod

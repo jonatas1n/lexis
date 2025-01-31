@@ -8,3 +8,15 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     entrypoint: ["/app/run.sh"]
+
+  ui:
+    build: ./front
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+      - /app/dist
+      - ./front/package.json:/app/package.json
+      - ./front/yarn.lock:/app/yarn.lock
+    command: ["yarn", "dev"]

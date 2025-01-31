@@ -16,7 +16,7 @@ class BillServices:
 
         for index, bill in enumerate(bills):
             bills[index] = {**bill, "opposed_votes": 0, "support_votes": 0}
-            bill_votes = [vote['id'] for vote in votes if vote["bill_id"] == bill["id"]]
+            bill_votes = [vote["id"] for vote in votes if vote["bill_id"] == bill["id"]]
             if not bill_votes:
                 continue
 

@@ -2,28 +2,24 @@ from typing import Optional
 from ..votes_results.repositories import VotesResultRepository
 from .repositories import LegislatorRepository
 
+def process_legislator(legislator: dict, votes_results: list[dict]):
+    legislator = {**legislator, "supported_bills": 0, "opposed_bills": 0}
+    for vote_result in votes_results:
+        if vote_result["legislator_id"] != legislator["id"]:
+            continue
+        
+        vote_type_key = (
+            "supported_bills" if vote_result["vote_type"] == 1 else "opposed_bills"
+        )
+        legislator[vote_type_key] += 1
+    return legislator
+
 
 class LegislatorServices:
     @staticmethod
     def get_all(name: Optional[str] = None):
         legislators = LegislatorRepository.read_csv()
         votes_results = VotesResultRepository.read_csv()
-        votes_counts = {}
-        base_votes_counts = {"supported_bills": 0, "opposed_bills": 0}
-        for vote in votes_results:
-            legislator_id = vote["legislator_id"]
-            vote_type_key = (
-                "supported_bills" if vote["vote_type"] == 1 else "opposed_bills"
-            )
-            if not legislator_id in votes_counts:
-                votes_counts[legislator_id] = base_votes_counts
-            votes_counts[legislator_id][vote_type_key] += 1
-
-        def increment_legislator(legislator: dict):
-            if legislator["id"] not in votes_counts:
-                votes_counts[legislator["id"]] = base_votes_counts
-            legislator = {**legislator, **(votes_counts[legislator["id"]])}
-            return legislator
 
         def filter_legislator(legislator: dict):
             if name and name.lower() not in legislator["name"].lower():
@@ -31,7 +27,7 @@ class LegislatorServices:
             return True
 
         return [
-            increment_legislator(legislator)
+            process_legislator(legislator, votes_results)
             for legislator in legislators
             if filter_legislator(legislator)
         ]
@@ -49,14 +45,4 @@ class LegislatorServices:
             ),
             None,
         )
-
-        votes_counts = {"supported_bills": 0, "opposed_bills": 0}
-        for vote_result in votes_results:
-            if vote_result["legislator_id"] != legislator_id:
-                continue
-            vote_type_key = (
-                "supported_bills" if vote_result["vote_type"] == 1 else "opposed_bills"
-            )
-            votes_counts[vote_type_key] += 1
-        legislator = {**legislator, **votes_counts}
-        return legislator
+        return process_legislator(legislator, votes_results)

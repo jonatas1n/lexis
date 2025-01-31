@@ -1,0 +1,1 @@
+export const BILL_LIST_QUERY_PARAM = 'bills';

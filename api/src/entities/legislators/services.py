@@ -33,10 +33,9 @@ class LegislatorServices:
         ]
 
     @staticmethod
-    def get_by_id(legislator_id):
+    def get_by_id(legislator_id: str):
         legislator_id = int(legislator_id)
         legislators = LegislatorRepository.read_csv()
-        votes_results = VotesResultRepository.read_csv()
         legislator = next(
             (
                 legislator
@@ -45,4 +44,16 @@ class LegislatorServices:
             ),
             None,
         )
+        votes_results = VotesResultRepository.read_csv()
         return process_legislator(legislator, votes_results)
+    
+    @staticmethod
+    def get_votes(legislator_id: str):
+        legislator_id = int(legislator_id)
+        votes_results = VotesResultRepository.read_csv()
+        legislator_votes_results = []
+        for vote_result in votes_results:
+            if vote_result["legislator_id"] != legislator_id:
+                continue
+            legislator_votes_results.append(vote_result)
+        return legislator_votes_results

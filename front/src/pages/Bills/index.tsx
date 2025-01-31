@@ -65,10 +65,12 @@ export const BillsPage = () => {
   const clearTerm = () => setSearchTerm("");
 
   const selectBill = (legislator: Bill["id"]) =>
-      updateQuery({
-        ...query,
-        [SELECTED_BILL_QUERY_PARAM]: legislator.toString(),
-      });
+    updateQuery({
+      ...query,
+      [SELECTED_BILL_QUERY_PARAM]: legislator.toString(),
+    });
+  const clearSelected = () =>
+    updateQuery({ ...query, [SELECTED_BILL_QUERY_PARAM]: "" });
 
   const { data: bills, isLoading } = useBills(queryParams);
 

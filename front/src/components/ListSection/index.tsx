@@ -10,6 +10,7 @@ type ListSectionProps<T> = {
 };
 
 const TIMEOUT_PERIOD = 500;
+const ITEMS_LIMIT = 10;
 
 export const ListSection = <T,>({
   data,
@@ -19,6 +20,7 @@ export const ListSection = <T,>({
   seeMorePath,
 }: ListSectionProps<T>) => {
   const [showSpinner, setShowSpinner] = useState(false);
+  const cappedData = data?.slice(0, ITEMS_LIMIT);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -44,8 +46,8 @@ export const ListSection = <T,>({
           </Link>
         </Flex>
         <Flex height="100%" direction="column" gap={2}>
-          {data && !isLoading ? (
-            data.map(renderItem)
+          {cappedData && !isLoading ? (
+            cappedData.map(renderItem)
           ) : showSpinner ? (
             <Flex align="center" justify="center" height="100%">
               <Spinner />

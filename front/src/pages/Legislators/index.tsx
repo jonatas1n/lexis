@@ -21,7 +21,7 @@ type UpdateQueryProps = Partial<{
 export const LegislatorsPage = () => {
   const query = useQueryParam();
   const navigate = useNavigate();
-  
+
   const querySearchTerm = useMemo(
     () => query.get(SEARCH_QUERY_PARAM) ?? "",
     [query]
@@ -67,27 +67,28 @@ export const LegislatorsPage = () => {
   return (
     <PageBoxLayout>
       <Grid alignContent="flex-start" gap={4} h="100%">
-        <Flex align="center" justify="space-between" px={2}>
+        <Flex
+          align="center"
+          justify="space-between"
+          direction={{ lg: "row", base: "column" }}
+          mb={4}
+          gap={4}
+        >
           <Text fontWeight="800" fontSize={24}>
             {PAGE_TITLE}
           </Text>
-          <Flex>
-            <SearchInput
-              placeholder="Search for Legislators names"
-              py={0}
-              value={searchTerm}
-              onChange={handleSearchChange}
-              onClear={clearTerm}
-            />
-          </Flex>
+          <SearchInput
+            placeholder="Search for Legislators names"
+            py={0}
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onClear={clearTerm}
+          />
         </Flex>
         <Grid gap={2} px={2} alignContent="flex-start" overflowY="auto">
           {!isLoading && legislators ? (
             legislators.map((legislator) => (
-              <LegislatorItem
-                legislator={legislator}
-                key={legislator.id}
-              />
+              <LegislatorItem legislator={legislator} key={legislator.id} />
             ))
           ) : (
             <Flex justify="center" align="center">

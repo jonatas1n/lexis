@@ -59,33 +59,31 @@ export const BillsPage = () => {
 
   const clearTerm = () => setSearchTerm("");
 
-
   const { data: bills, isLoading } = useBills(queryParams);
 
   return (
     <PageBoxLayout>
-      <Flex align="center" justify="space-between" mb={4} gap={4}>
+      <Flex
+        align="center"
+        justify="space-between"
+        direction={{ lg: "row", base: "column" }}
+        mb={4}
+        gap={4}
+      >
         <Text fontWeight="800" fontSize={24}>
           {PAGE_TITLE}
         </Text>
-        <Flex>
-          <SearchInput
-            placeholder="Search for Bills titles"
-            py={0}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            onClear={clearTerm}
-          />
-        </Flex>
+        <SearchInput
+          placeholder="Search for Bills titles"
+          py={0}
+          value={searchTerm}
+          onChange={handleSearchChange}
+          onClear={clearTerm}
+        />
       </Flex>
       <Grid gap={2} alignContent="flex-start" h="100%" overflowY="auto">
         {!isLoading ? (
-          bills?.map((bill) => (
-            <BillItem
-              bill={bill}
-              key={bill.id}
-            />
-          ))
+          bills?.map((bill) => <BillItem bill={bill} key={bill.id} />)
         ) : (
           <Flex justify="center" align="center">
             <Spinner />

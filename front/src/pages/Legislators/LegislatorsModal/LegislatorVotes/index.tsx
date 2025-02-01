@@ -1,4 +1,4 @@
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { Grid, Tabs } from "@chakra-ui/react";
 import { Legislator } from "@/types";
 import { useLegislatorVotes } from "@/hooks/api/queries/legislators";

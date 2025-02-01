@@ -20,12 +20,12 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const updateLegislator = (id: string) => {
-    clearSelected();
+    setSelectedBill("");
     setSelectedLegislator(id);
   };
 
   const updateBill = (id: string) => {
-    clearSelected();
+    setSelectedLegislator("");
     setSelectedBill(id);
   };
 

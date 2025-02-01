@@ -5,24 +5,18 @@ import { useBillVotes } from "@/hooks/api/queries/bills";
 import { LegislatorItem } from "@/components/LegislatorItem";
 
 export const BillVotes = ({ bill }: { bill: Bill }) => {
-  const { data: billVotes } = useBillVotes(
-    bill.id?.toString()
-  );
+  const { data: billVotes } = useBillVotes(bill.id?.toString());
   const { noVoters, yesVoters } = billVotes ?? {};
   return (
     <Tabs.Root variant="subtle" defaultValue="yesBills">
       <Tabs.List width="100%" justifyContent="space-between">
-        <Tabs.Trigger
-          width="100%"
-          justifyContent="center"
-          value="yesBills"
-        >
+        <Tabs.Trigger width="100%" justifyContent="center" value="yesBills">
           <IoMdHeart />
-          Yes Voters
+          Yes Voters ({yesVoters?.length ?? 0})
         </Tabs.Trigger>
         <Tabs.Trigger width="100%" justifyContent="center" value="noBills">
           <IoMdHeartDislike />
-          No Voters
+          No Voters ({noVoters?.length ?? 0})
         </Tabs.Trigger>
         <Tabs.Indicator />
       </Tabs.List>

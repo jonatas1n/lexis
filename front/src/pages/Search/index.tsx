@@ -8,8 +8,8 @@ import { BillsList } from "./BillsList";
 import { useDebounce } from "react-use";
 import { useNavigate } from "react-router-dom";
 import { SearchInput } from "@/components/SearchInput";
-import { FaTimes } from "react-icons/fa";
 import { mergeURLSearchParams } from "@/utils/uri";
+import { Tag } from "@/components/ui/tag";
 
 const LIMIT = 10;
 const SEARCH_QUERY_PARAM = "search";
@@ -81,29 +81,15 @@ export const SearchPage = () => {
 
   return (
     <Flex direction="column" height="100vh" justify="center" gap={12}>
-      <Grid gap={4}>
+      <Grid gap={4} px={32}>
         <Text p={8} textAlign="center">
           The Logo here
         </Text>
-        <Flex px={32}>
-          <SearchInput value={searchTerm} onChange={handleSearchChange} />
-        </Flex>
+        <SearchInput value={searchTerm} onChange={handleSearchChange} />
         {isSearching && (
-          <Flex justify="flex-end" onClick={clearTerm}>
-            <Flex
-              align="center"
-              bgColor="black"
-              px={2}
-              color="white"
-              borderRadius={8}
-              gap={1}
-            >
-              <Text fontVariant="all-small-caps">
-                Search Term: <b>{searchTerm}</b>
-              </Text>
-              <FaTimes />
-            </Flex>
-          </Flex>
+          <Tag justifySelf="flex-end" closable onClose={clearTerm}>
+            Search Term: <b>{searchTerm}</b>
+          </Tag>
         )}
       </Grid>
       <Grid gap={4} templateColumns="repeat(2, 1fr)">

@@ -82,7 +82,6 @@ export const BillsPage = () => {
         {!isLoading ? (
           bills?.map((bill) => (
             <BillItem
-              showId
               bill={bill}
               key={bill.id}
             />

@@ -85,7 +85,6 @@ export const LegislatorsPage = () => {
           {!isLoading && legislators ? (
             legislators.map((legislator) => (
               <LegislatorItem
-                showId
                 legislator={legislator}
                 key={legislator.id}
               />

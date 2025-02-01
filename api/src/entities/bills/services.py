@@ -53,8 +53,14 @@ class BillServices:
         bills = BillRepository.read_csv()
         votes = VoteRepository.read_csv()
         votes_results = VotesResultRepository.read_csv()
+
         bill = next((bill for bill in bills if bill["id"] == bill_id), None)
         bill = process_bill(bill, votes, votes_results)
+        try:
+            sponsor = LegislatorServices.get_by_id(bill["sponsor_id"])
+            bill = {**bill, "sponsor_name": sponsor["name"]}
+        except:
+            pass
         return bill
 
     @staticmethod

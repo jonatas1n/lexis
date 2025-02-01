@@ -1,5 +1,12 @@
 import { useLegislator } from "@/hooks/api/queries/legislators/legislator";
-import { Flex, Grid, GridItem, Spinner, Separator } from "@chakra-ui/react";
+import {
+  Flex,
+  Grid,
+  GridItem,
+  Spinner,
+  Separator,
+  Text,
+} from "@chakra-ui/react";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -38,11 +45,22 @@ export const LegislatorsModal = () => {
               <GridItem>
                 <Grid gap={4}>
                   <LegislatorProfile legislator={legislator} />
-                  <ProgresBar yesCount={yesBills ?? 0} noCount={noBills ?? 0} />
+                  {yesBills && noBills ? (
+                    <ProgresBar
+                      yesCount={yesBills ?? 0}
+                      noCount={noBills ?? 0}
+                    />
+                  ) : null}
                 </Grid>
               </GridItem>
               <Separator />
-              <LegislatorVotes legislator={legislator} />
+              {yesBills && noBills ? (
+                <LegislatorVotes legislator={legislator} />
+              ) : (
+                <Text fontStyle="italic" textAlign="center">
+                  This legislator did not participate in any votes
+                </Text>
+              )}
             </Grid>
           </DialogBody>
         ) : (

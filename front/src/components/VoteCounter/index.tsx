@@ -1,4 +1,4 @@
-import { Grid, Flex } from "@chakra-ui/react";
+import { Grid, Card, Text, Icon } from "@chakra-ui/react";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import { Tooltip } from "@/components/ui/tooltip";
 
@@ -16,35 +16,35 @@ export const VoteCounter = ({
   nayMessage,
 }: VoteCounterProps) => {
   return (
-    <Grid gap={2} templateColumns="repeat(2, 1fr)">
+    <Grid gap={1} templateColumns="repeat(2, 1fr)">
       <Tooltip content={nayMessage}>
-        <Flex
-          align="center"
-          justify="space-between"
-          bgColor="black"
-          color="white"
-          p={1}
-          borderRadius={4}
-          gap={1}
-        >
-          <AiFillDislike />
-          {nayCount}
-        </Flex>
+        <Card.Root size="sm" p={0} minWidth={12}>
+          <Card.Body
+            p={1}
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Icon as={AiFillDislike} />
+            <Text>{nayCount}</Text>
+          </Card.Body>
+        </Card.Root>
       </Tooltip>
-      <Tooltip content={yeaMessage}>
-        <Flex
-          align="center"
-          justify="space-between"
-          bgColor="black"
-          color="white"
-          p={1}
-          borderRadius={4}
-          gap={1}
-        >
-          <AiFillLike />
-          {yeaCount}
-        </Flex>
-      </Tooltip>
+      <Card.Root size="sm" minWidth={12}>
+        <Tooltip content={yeaMessage}>
+          <Card.Body
+            p={1}
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <AiFillLike />
+            {yeaCount}
+          </Card.Body>
+        </Tooltip>
+      </Card.Root>
     </Grid>
   );
 };

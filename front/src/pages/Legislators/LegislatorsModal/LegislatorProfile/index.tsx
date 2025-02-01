@@ -15,10 +15,10 @@ export const LegislatorProfile = ({ legislator }: LegislatorProfileProps) => {
               </Avatar.Fallback>
             </Avatar.Root>
       <Flex direction="column" align="flex-start">
+        <Badge>#{legislator.id}</Badge>
         <Text fontWeight="700" fontSize={20}>
           {legislator.name}
         </Text>
-        <Badge>#{legislator.id}</Badge>
       </Flex>
     </Flex>
   );

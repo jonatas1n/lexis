@@ -36,7 +36,7 @@ export const ListSection = <T,>({
 
   return (
     <Card.Root>
-      <Card.Body>
+      <Card.Body p={{ md: "1.5rem", base: 4 }}>
         <Flex justify="space-between" mb={4}>
           <Text fontWeight="800" fontSize={20}>
             {title}

@@ -5,7 +5,7 @@ import { Logo } from "../Logo";
 
 export const PageBoxLayout = ({ children }: PropsWithChildren) => {
   return (
-    <Grid w="100vh">
+    <Grid h="100vh">
       <Grid gap="1rem" templateRows="3rem calc(100vh - 6rem)">
         <GridItem alignContent="center">
           <Grid w="100%" templateColumns="1fr auto 1fr" alignItems="center">

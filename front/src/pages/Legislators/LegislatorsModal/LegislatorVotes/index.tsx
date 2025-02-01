@@ -8,37 +8,37 @@ export const LegislatorVotes = ({ legislator }: { legislator: Legislator }) => {
   const { data: legislatorVotes } = useLegislatorVotes(
     legislator.id?.toString()
   );
-  const { opposedVotes, supportedVotes } = legislatorVotes ?? {};
+  const { noVotes, supportedVotes } = legislatorVotes ?? {};
   return (
-    <Tabs.Root variant="subtle" defaultValue="supportedBills">
+    <Tabs.Root variant="subtle" defaultValue="yesBills">
       <Tabs.List width="100%" justifyContent="space-between">
         <Tabs.Trigger
           width="100%"
           justifyContent="center"
-          value="supportedBills"
+          value="yesBills"
         >
           <IoMdHeart />
           Support Votes
         </Tabs.Trigger>
-        <Tabs.Trigger width="100%" justifyContent="center" value="opposedBills">
+        <Tabs.Trigger width="100%" justifyContent="center" value="noBills">
           <IoMdHeartDislike />
           Oppose Votes
         </Tabs.Trigger>
         <Tabs.Indicator />
       </Tabs.List>
-      <Tabs.Content value="supportedBills">
+      <Tabs.Content value="yesBills">
         <Grid gap={2}>
           {supportedVotes &&
             supportedVotes.map((vote) => (
-              <VoteResultItem voteResult={vote} showId key={vote.id} />
+              <VoteResultItem voteResult={vote} key={vote.id} />
             ))}
         </Grid>
       </Tabs.Content>
-      <Tabs.Content value="opposedBills">
+      <Tabs.Content value="noBills">
         <Grid gap={2}>
-          {opposedVotes &&
-            opposedVotes.map((vote) => (
-              <VoteResultItem voteResult={vote} showId key={vote.id} />
+          {noVotes &&
+            noVotes.map((vote) => (
+              <VoteResultItem voteResult={vote} key={vote.id} />
             ))}
         </Grid>
       </Tabs.Content>

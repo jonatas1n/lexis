@@ -13,10 +13,10 @@ export const ProgresBar = ({ value = null, total }: ProgressBarProps) => {
       </Progress.Track>
       <Flex justify="space-between" mt={1}>
         <Progress.Label>
-          {value && <Text>{value.toFixed(2)}% support votes</Text>}
+          {value && <Text>{value.toFixed(2)}% Yes votes</Text>}
         </Progress.Label>
         <Progress.Label>
-          {value && <Text>{(total - value).toFixed(2)}% oppose votes</Text>}
+          {value && <Text>{(total - value).toFixed(2)}% No votes</Text>}
         </Progress.Label>
       </Flex>
     </Progress.Root>

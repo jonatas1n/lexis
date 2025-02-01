@@ -19,8 +19,8 @@ export const LegislatorsModal = () => {
     selectedLegislator ?? ""
   );
   const supportedVotesRate = legislator
-    ? (legislator.supportedBills /
-        (legislator.opposedBills + legislator.supportedBills)) *
+    ? (legislator.yesBills /
+        (legislator.noBills + legislator.yesBills)) *
       100
     : null;
 

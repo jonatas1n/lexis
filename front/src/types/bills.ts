@@ -2,16 +2,16 @@ export type Bill = {
   id: number;
   title: string;
   sponsorId: number;
-  supportVotes: number;
-  opposedVotes: number;
+  yesVotes: number;
+  noVotes: number;
 };
 
 export type BillResponse = {
   id: string;
   title: string;
-  sponsorId: string;
-  support_votes: number;
-  opposed_votes: number;
+  sponsor_id: string;
+  yes_votes: number;
+  no_votes: number;
 };
 
 export interface BillPageResult {

@@ -3,23 +3,23 @@ import { VotesResults, VotesResultsResponse } from "./votes-results";
 export type Legislator = {
   id: number;
   name: string;
-  supportedBills: number;
-  opposedBills: number;
+  yesBills: number;
+  noBills: number;
 };
 
 export type LegislatorVotesList = {
   supportedVotes: VotesResults[];
-  opposedVotes: VotesResults[]
+  noVotes: VotesResults[]
 };
 
 export type LegislatorVotesListResponse = {
-  supported_votes: VotesResultsResponse[];
-  opposed_votes: VotesResultsResponse[];
+  yes_votes: VotesResultsResponse[];
+  no_votes: VotesResultsResponse[];
 }
 
 export type LegislatorResponse = {
-  id: number;
+  id: string;
   name: string;
-  supported_bills: number;
-  opposed_bills: number;
+  yes_bills: string;
+  no_bills: string;
 };

@@ -18,8 +18,8 @@ export const useLegislators = ({ name }: Params, options?: OptionType) => {
 
       return data.map(legislator => ({
         ...legislator,
-        opposedBills: legislator.opposed_bills,
-        supportedBills: legislator.supported_bills,
+        noBills: legislator.no_bills,
+        yesBills: legislator.yes_bills,
       }));
     },
     ...options,

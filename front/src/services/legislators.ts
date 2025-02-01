@@ -21,8 +21,8 @@ export const listLegislators = async (
 
   return data.map((legislator) => ({
     ...legislator,
-    opposedBills: legislator.opposed_bills,
-    supportedBills: legislator.supported_bills,
+    noBills: legislator.no_bills,
+    yesBills: legislator.yes_bills,
   }));
 };
 
@@ -37,8 +37,8 @@ export const getLegislator = async (
 
   return {
     ...data,
-    opposedBills: data.opposed_bills,
-    supportedBills: data.supported_bills,
+    noBills: data.no_bills,
+    yesBills: data.yes_bills,
   };
 };
 
@@ -50,7 +50,7 @@ export const getLegislatorVotes = async (
     `/legislators/${id}/votes`,
     { signal }
   );
-  if (!data) return { supportedVotes: [], opposedVotes: [] };
+  if (!data) return { supportedVotes: [], noVotes: [] };
 
   const mapVotes = (votes: VotesResultsResponse[]) =>
     votes.map(({ legislator_id, vote_id, vote_type, id, bill_title, bill_id }) => ({
@@ -63,7 +63,7 @@ export const getLegislatorVotes = async (
     }));
 
   return {
-    supportedVotes: mapVotes(data.supported_votes),
-    opposedVotes: mapVotes(data.opposed_votes),
+    supportedVotes: mapVotes(data.yes_votes),
+    noVotes: mapVotes(data.no_votes),
   };
 };

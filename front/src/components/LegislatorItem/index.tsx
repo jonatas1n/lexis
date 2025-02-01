@@ -18,8 +18,8 @@ export const LegislatorItem = ({ legislator }: LegislatorItemType) => {
         <VoteCounter
           nayMessage="Votes against pieces of legislation."
           yeaMessage="Votes for pieces of legislation."
-          nayCount={legislator.opposedBills}
-          yeaCount={legislator.supportedBills}
+          nayCount={legislator.noBills}
+          yeaCount={legislator.yesBills}
         />
       </Card.Body>
     </Card.Root>

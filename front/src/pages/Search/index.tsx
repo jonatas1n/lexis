@@ -9,6 +9,7 @@ import { useDebounce } from "react-use";
 import { useNavigate } from "react-router-dom";
 import { SearchInput } from "@/components/SearchInput";
 import { FaTimes } from "react-icons/fa";
+import { mergeURLSearchParams } from "@/utils/uri";
 
 const LIMIT = 10;
 const SEARCH_QUERY_PARAM = "search";
@@ -30,7 +31,7 @@ export const SearchPage = () => {
 
   const updateQuery = useCallback(
     (props: UpdateQueryProps) => {
-      const newSearch = new URLSearchParams({ ...query, ...props }).toString();
+      const newSearch = mergeURLSearchParams(query, { ...props }).toString();
       navigate({ ...location, search: newSearch }, { replace: true });
     },
     [query, navigate]

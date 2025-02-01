@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..bills.services import BillServices
+
 from ..votes_results.repositories import VotesResultRepository
 from ..votes.services import VoteServices
 from .repositories import LegislatorRepository
@@ -53,6 +53,8 @@ class LegislatorServices:
 
     @staticmethod
     def get_votes(legislator_id: str):
+        from ..bills.services import BillServices
+
         legislator_id = int(legislator_id)
         votes_results = VotesResultRepository.read_csv()
         legislator_votes_results = {"yes_votes": [], "no_votes": []}

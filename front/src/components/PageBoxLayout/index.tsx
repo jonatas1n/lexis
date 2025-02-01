@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Link, Text } from "@chakra-ui/react";
+import { Card, Grid, GridItem, Link, Text } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -11,17 +11,11 @@ export const PageBoxLayout = ({ children }: PropsWithChildren) => {
             <FaArrowLeft /> <Text fontVariant="all-small-caps">Back</Text>
           </Link>
         </GridItem>
-        <Flex
-          direction="column"
-          border="1px solid #ccc"
-          borderRadius={8}
-          overflow="hidden"
-          h="100%"
-          p={4}
-          flex="1"
-        >
-          {children}
-        </Flex>
+        <Card.Root>
+          <Card.Body h="100%">
+            {children}
+          </Card.Body>
+        </Card.Root>
       </Grid>
     </Grid>
   );

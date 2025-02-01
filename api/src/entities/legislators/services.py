@@ -1,6 +1,10 @@
 from typing import Optional
+
+from ..bills.services import BillServices
 from ..votes_results.repositories import VotesResultRepository
+from ..votes.services import VoteServices
 from .repositories import LegislatorRepository
+
 
 def process_legislator(legislator: dict, votes_results: list[dict]):
     legislator = {**legislator, "supported_bills": 0, "opposed_bills": 0}
@@ -46,14 +50,20 @@ class LegislatorServices:
         )
         votes_results = VotesResultRepository.read_csv()
         return process_legislator(legislator, votes_results)
-    
+
     @staticmethod
     def get_votes(legislator_id: str):
         legislator_id = int(legislator_id)
         votes_results = VotesResultRepository.read_csv()
-        legislator_votes_results = []
+        legislator_votes_results = {"supported_votes": [], "opposed_votes": []}
         for vote_result in votes_results:
             if vote_result["legislator_id"] != legislator_id:
                 continue
-            legislator_votes_results.append(vote_result)
+            vote = VoteServices.get_by_id(vote_result["vote_id"])
+            bill = BillServices.get_by_id(vote["bill_id"])
+            vote_result = {**vote_result, "bill_title": bill["title"], "bill_id": bill["id"]}
+            vote_type_key = (
+                "supported_votes" if vote_result["vote_type"] == 1 else "opposed_votes"
+            )
+            legislator_votes_results[vote_type_key].append(vote_result)
         return legislator_votes_results

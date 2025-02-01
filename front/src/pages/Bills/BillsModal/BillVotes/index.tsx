@@ -18,11 +18,11 @@ export const BillVotes = ({ bill }: { bill: Bill }) => {
           value="yesBills"
         >
           <IoMdHeart />
-          Support Voters
+          Yes Voters
         </Tabs.Trigger>
         <Tabs.Trigger width="100%" justifyContent="center" value="noBills">
           <IoMdHeartDislike />
-          Oppose Voters
+          No Voters
         </Tabs.Trigger>
         <Tabs.Indicator />
       </Tabs.List>

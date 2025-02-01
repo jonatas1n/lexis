@@ -8,7 +8,7 @@ export const LegislatorVotes = ({ legislator }: { legislator: Legislator }) => {
   const { data: legislatorVotes } = useLegislatorVotes(
     legislator.id?.toString()
   );
-  const { noVotes, supportedVotes } = legislatorVotes ?? {};
+  const { noVotes, yesVotes } = legislatorVotes ?? {};
   return (
     <Tabs.Root variant="subtle" defaultValue="yesBills">
       <Tabs.List width="100%" justifyContent="space-between">
@@ -18,18 +18,18 @@ export const LegislatorVotes = ({ legislator }: { legislator: Legislator }) => {
           value="yesBills"
         >
           <IoMdHeart />
-          Support Votes
+          Yes Votes
         </Tabs.Trigger>
         <Tabs.Trigger width="100%" justifyContent="center" value="noBills">
           <IoMdHeartDislike />
-          Oppose Votes
+          No Votes
         </Tabs.Trigger>
         <Tabs.Indicator />
       </Tabs.List>
       <Tabs.Content value="yesBills">
         <Grid gap={2}>
-          {supportedVotes &&
-            supportedVotes.map((vote) => (
+          {yesVotes &&
+            yesVotes.map((vote) => (
               <VoteResultItem voteResult={vote} key={vote.id} />
             ))}
         </Grid>

@@ -1,10 +1,10 @@
 import { apiClient } from ".";
 import { GenericAbortSignal } from "axios";
-import { StringOrNumber, BillResponse } from "../types";
+import { BillResponse } from "../types";
 
 type GetBillsParamType = {
   title?: string;
-  sponsorId?: StringOrNumber;
+  sponsorId?: string;
 };
 
 export const listBills = async (
@@ -20,7 +20,9 @@ export const listBills = async (
   });
 
   return data.map((bill) => ({
-    ...bill,
+    id: parseInt(bill.id),
+    title: bill.title,
+    sponsorId: parseInt(bill.sponsorId),
     opposedVotes: bill.opposed_votes,
     supportVotes: bill.support_votes,
   }));
@@ -32,7 +34,9 @@ export const getBill = async (id: string, signal?: GenericAbortSignal) => {
   });
 
   return {
-    ...data,
+    id: parseInt(data.id),
+    title: data.title,
+    sponsorId: parseInt(data.sponsorId),
     opposedVotes: data.opposed_votes,
     supportVotes: data.support_votes,
   };

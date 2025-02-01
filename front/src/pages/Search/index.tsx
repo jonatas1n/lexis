@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useCallback, useMemo } from "react";
-import { Flex, Grid, Text } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
 import { useBills } from "@/hooks/api/queries/bills/list-bills";
 import { useLegislators } from "@/hooks/api/queries/legislators/list-legislators";
 import { useQueryParam } from "@/hooks/api/queries/query";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { SearchInput } from "@/components/SearchInput";
 import { mergeURLSearchParams } from "@/utils/uri";
 import { Tag } from "@/components/ui/tag";
+import { Logo } from "@/components/Logo";
 
 const LIMIT = 10;
 const SEARCH_QUERY_PARAM = "search";
@@ -82,9 +83,7 @@ export const SearchPage = () => {
   return (
     <Flex direction="column" height="100vh" justify="center" gap={12}>
       <Grid gap={4} px={32}>
-        <Text p={8} textAlign="center">
-          The Logo here
-        </Text>
+        <Logo justify="center" />
         <SearchInput value={searchTerm} onChange={handleSearchChange} />
         {isSearching && (
           <Tag justifySelf="flex-end" closable onClose={clearTerm}>

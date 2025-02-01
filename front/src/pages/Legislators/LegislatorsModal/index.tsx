@@ -1,5 +1,5 @@
 import { useLegislator } from "@/hooks/api/queries/legislators/legislator";
-import { Flex, Grid, GridItem, Spinner } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Spinner, Separator } from "@chakra-ui/react";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -45,9 +45,8 @@ export const LegislatorsModal = () => {
                   <ProgresBar value={supportedVotesRate} total={100} />
                 </Grid>
               </GridItem>
-              <GridItem>
-                <LegislatorVotes legislator={legislator} />
-              </GridItem>
+              <Separator />
+              <LegislatorVotes legislator={legislator} />
             </Grid>
           </DialogBody>
         ) : (

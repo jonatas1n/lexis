@@ -7,24 +7,15 @@ import {
 } from "@/components/ui/dialog";
 import { useBill } from "@/hooks/api/queries/bills/bill";
 import { AvatarGroup, Avatar } from "@/components/ui/avatar";
-import {
-  Flex,
-  Grid,
-  GridItem,
-  Spinner,
-  Text,
-  Tabs,
-  Progress,
-} from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Spinner, Text, Tabs } from "@chakra-ui/react";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { FaVoteYea } from "react-icons/fa";
+import { ProgresBar } from "@/components/ProgressBar";
+import { useAppContext } from "@/hooks/context";
 
-type BillsModalProps = {
-  onClose: VoidFunction;
-  billId?: string;
-};
-
-export const BillsModal = ({ billId, onClose }: BillsModalProps) => {
-  const { data: bill, isLoading } = useBill(billId ?? "");
+export const BillsModal = () => {
+  const { selectedBill, clearSelectedBill } = useAppContext();
+  const { data: bill, isLoading } = useBill(selectedBill ?? "");
   const supportedVotesRate = bill
     ? (bill.supportVotes / (bill.opposedVotes + bill.supportVotes)) * 100
     : null;
@@ -34,12 +25,12 @@ export const BillsModal = ({ billId, onClose }: BillsModalProps) => {
       size="xl"
       placement="center"
       motionPreset="slide-in-bottom"
-      open={!!billId}
+      open={!!selectedBill}
       closeOnInteractOutside
     >
       <DialogContent>
         <DialogHeader>
-          <DialogCloseTrigger onClick={onClose} />
+          <DialogCloseTrigger onClick={clearSelectedBill} />
         </DialogHeader>
         {!isLoading && bill ? (
           <DialogBody>
@@ -48,7 +39,7 @@ export const BillsModal = ({ billId, onClose }: BillsModalProps) => {
                 <Grid gap={4}>
                   <Flex gap={2} align="center">
                     <AvatarGroup>
-                      <Avatar size="xl" />
+                      <Avatar icon={<FaVoteYea />} size="xl" />
                     </AvatarGroup>
                     <Grid>
                       <Text fontWeight="700" fontSize={20}>
@@ -58,17 +49,7 @@ export const BillsModal = ({ billId, onClose }: BillsModalProps) => {
                     </Grid>
                   </Flex>
                   <GridItem>
-                    <Progress.Root
-                      value={supportedVotesRate ?? null}
-                      max={100}
-                      size="lg"
-                    >
-                      <Progress.Track>
-                        <Progress.Range />
-                      </Progress.Track>
-                      <Progress.Label />
-                      <Progress.ValueText />
-                    </Progress.Root>
+                    <ProgresBar value={supportedVotesRate} total={100} />
                   </GridItem>
                 </Grid>
               </GridItem>

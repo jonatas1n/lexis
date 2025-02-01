@@ -1,17 +1,15 @@
-import { StringOrNumber } from ".";
-
 export type Bill = {
-  id: StringOrNumber;
+  id: number;
   title: string;
-  sponsorId: StringOrNumber;
+  sponsorId: number;
   supportVotes: number;
   opposedVotes: number;
 };
 
 export type BillResponse = {
-  id: StringOrNumber;
+  id: string;
   title: string;
-  sponsorId: StringOrNumber;
+  sponsorId: string;
   support_votes: number;
   opposed_votes: number;
 };

@@ -20,8 +20,8 @@ export const BillItem = ({ bill }: BillItemType) => {
     >
       <Card.Body
         display="grid"
-        gridTemplateColumns="auto 8rem"
-        gap={2}
+        gridTemplateColumns={{ lg: "auto 8rem", base: "1fr" }}
+        gap={{ md: 2, base: 1 }}
         alignItems="center"
         p={1}
       >

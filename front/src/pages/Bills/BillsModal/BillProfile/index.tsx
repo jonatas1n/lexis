@@ -1,4 +1,4 @@
-import { Flex, Text, Badge, Avatar } from "@chakra-ui/react";
+import { Flex, Text, Badge, Avatar, Link } from "@chakra-ui/react";
 import { Bill } from "@/types";
 import { FaScroll } from "react-icons/fa";
 import { useAppContext } from "@/hooks/context";
@@ -27,14 +27,13 @@ export const BillProfile = ({ bill }: BillProfileProps) => {
         {bill.sponsorName && (
           <Flex gap={1}>
             <Text>Primary Sponsor:</Text>
-            <Text
+            <Link
               onClick={openSponsorPage}
-              fontSize={16}
               fontWeight="600"
               textDecoration="underline"
             >
               {bill.sponsorName}
-            </Text>
+            </Link>
           </Flex>
         )}
       </Flex>

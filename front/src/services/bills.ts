@@ -58,7 +58,7 @@ export const getBillVotes = async (id: string, signal?: GenericAbortSignal) => {
     }));
   
   return {
-    yesVoters: mapVotes(data.yes_voters),
-    noVoters: mapVotes(data.no_voters),
+    yesVoters: mapVotes(data.yes_votes),
+    noVoters: mapVotes(data.no_votes),
   }
 }

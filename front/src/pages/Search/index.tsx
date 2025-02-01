@@ -82,7 +82,7 @@ export const SearchPage = () => {
 
   return (
     <Flex direction="column" height="100vh" justify="center" gap={12}>
-      <Grid gap={4} px={32}>
+      <Grid gap={4} px={{ lg: 32, base: 0 }}>
         <Logo justify="center" />
         <SearchInput value={searchTerm} onChange={handleSearchChange} />
         {isSearching && (
@@ -91,7 +91,7 @@ export const SearchPage = () => {
           </Tag>
         )}
       </Grid>
-      <Grid gap={4} templateColumns="repeat(2, 1fr)">
+      <Grid gap={4} templateColumns={{ lg: "repeat(2, 1fr)", md: "1fr" }}>
         <BillsList data={bills} isLoading={isBillsLoading} />
         <LegislatorsList data={legislators} isLoading={isLegislatorsLoading} />
       </Grid>

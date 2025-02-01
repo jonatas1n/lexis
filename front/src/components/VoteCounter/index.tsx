@@ -16,9 +16,13 @@ export const VoteCounter = ({
   nayMessage,
 }: VoteCounterProps) => {
   return (
-    <Grid gap={1} templateColumns="repeat(2, 1fr)">
+    <Grid
+      gap={1}
+      display={{ base: "none", md: "grid" }}
+      templateColumns={{ lg: "repeat(2, 1fr)", base: "1fr" }}
+    >
       <Tooltip content={nayMessage}>
-        <Card.Root size="sm" p={0} minWidth={12}>
+        <Card.Root size="sm" p={0} minWidth={{ lg: 12, base: 0 }}>
           <Card.Body
             p={1}
             display="flex"

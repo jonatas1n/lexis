@@ -6,12 +6,11 @@ import {
   DialogRoot,
 } from "@/components/ui/dialog";
 import { useBill } from "@/hooks/api/queries/bills/bill";
-import { AvatarGroup, Avatar } from "@/components/ui/avatar";
-import { Flex, Grid, GridItem, Spinner, Text, Tabs } from "@chakra-ui/react";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
-import { FaVoteYea } from "react-icons/fa";
+import { Flex, Grid, GridItem, Separator, Spinner, Tabs } from "@chakra-ui/react";
+import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { ProgresBar } from "@/components/ProgressBar";
 import { useAppContext } from "@/hooks/context";
+import { BillProfile } from "./BillProfile";
 
 export const BillsModal = () => {
   const { selectedBill, clearSelectedBill } = useAppContext();
@@ -37,22 +36,11 @@ export const BillsModal = () => {
             <Grid gap={8}>
               <GridItem>
                 <Grid gap={4}>
-                  <Flex gap={2} align="center">
-                    <AvatarGroup>
-                      <Avatar icon={<FaVoteYea />} size="xl" />
-                    </AvatarGroup>
-                    <Grid>
-                      <Text fontWeight="700" fontSize={20}>
-                        {bill.title}
-                      </Text>
-                      <Text fontVariant="all-small-caps">#{bill.id}</Text>
-                    </Grid>
-                  </Flex>
-                  <GridItem>
-                    <ProgresBar value={supportedVotesRate} total={100} />
-                  </GridItem>
+                  <BillProfile bill={bill} />
+                  <ProgresBar value={supportedVotesRate} total={100} />
                 </Grid>
               </GridItem>
+              <Separator />
               <GridItem>
                 <Tabs.Root variant="subtle" defaultValue="supportedBills">
                   <Tabs.List width="100%" justifyContent="space-between">

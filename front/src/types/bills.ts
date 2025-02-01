@@ -17,8 +17,8 @@ export type BillResponse = {
 };
 
 export type BillVotesListResponse = {
-  yes_voters: LegislatorResponse[];
-  no_voters: LegislatorResponse[];
+  yes_votes: LegislatorResponse[];
+  no_votes: LegislatorResponse[];
 };
 
 export type BillVotesList = {

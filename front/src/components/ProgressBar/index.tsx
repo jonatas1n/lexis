@@ -7,8 +7,8 @@ type ProgressBarProps = {
 
 export const ProgresBar = ({ yesCount, noCount }: ProgressBarProps) => {
   const total = yesCount + noCount;
-  const yesPercentage = (yesCount / total) * 100;
-  const noPercentage = 100 - yesPercentage;
+  const yesPercentage = total ? (yesCount / total) * 100 : 0;
+  const noPercentage = total ? 100 - yesPercentage : 0;
   return (
     <Progress.Root value={yesPercentage} max={100} size="lg">
       <Progress.Track>

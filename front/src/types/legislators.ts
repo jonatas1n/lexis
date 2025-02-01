@@ -8,7 +8,7 @@ export type Legislator = {
 };
 
 export type LegislatorVotesList = {
-  supportedVotes: VotesResults[];
+  yesVotes: VotesResults[];
   noVotes: VotesResults[]
 };
 

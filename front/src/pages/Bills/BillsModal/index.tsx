@@ -15,7 +15,7 @@ import { BillVotes } from "./BillVotes";
 export const BillsModal = () => {
   const { selectedBill, clearSelectedBill } = useAppContext();
   const { data: bill, isLoading } = useBill(selectedBill ?? "");
-  const supportedVotesRate = bill
+  const yesVotesRate = bill
     ? (bill.yesVotes / (bill.noVotes + bill.yesVotes)) * 100
     : null;
 
@@ -37,7 +37,7 @@ export const BillsModal = () => {
               <GridItem>
                 <Grid gap={4}>
                   <BillProfile bill={bill} />
-                  <ProgresBar value={supportedVotesRate} total={100} />
+                  <ProgresBar value={yesVotesRate} total={100} />
                 </Grid>
               </GridItem>
               <Separator />

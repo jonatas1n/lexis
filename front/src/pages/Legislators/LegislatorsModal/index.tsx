@@ -18,7 +18,7 @@ export const LegislatorsModal = () => {
   const { data: legislator, isLoading } = useLegislator(
     selectedLegislator ?? ""
   );
-  const supportedVotesRate = legislator
+  const yesVotesRate = legislator
     ? (legislator.yesBills /
         (legislator.noBills + legislator.yesBills)) *
       100
@@ -42,7 +42,7 @@ export const LegislatorsModal = () => {
               <GridItem>
                 <Grid gap={4}>
                   <LegislatorProfile legislator={legislator} />
-                  <ProgresBar value={supportedVotesRate} total={100} />
+                  <ProgresBar value={yesVotesRate} total={100} />
                 </Grid>
               </GridItem>
               <Separator />

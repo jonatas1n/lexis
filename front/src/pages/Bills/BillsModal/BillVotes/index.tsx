@@ -2,43 +2,43 @@ import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { Grid, Tabs } from "@chakra-ui/react";
 import { Bill } from "@/types";
 import { useBillVotes } from "@/hooks/api/queries/bills";
-import { VoteResultItem } from "@/components/VoteItem";
+import { LegislatorItem } from "@/components/LegislatorItem";
 
 export const BillVotes = ({ bill }: { bill: Bill }) => {
   const { data: billVotes } = useBillVotes(
     bill.id?.toString()
   );
-  const { opposedVotes, supportedVotes } = billVotes ?? {};
+  const { noVoters, yesVoters } = billVotes ?? {};
   return (
-    <Tabs.Root variant="subtle" defaultValue="supportedBills">
+    <Tabs.Root variant="subtle" defaultValue="yesBills">
       <Tabs.List width="100%" justifyContent="space-between">
         <Tabs.Trigger
           width="100%"
           justifyContent="center"
-          value="supportedBills"
+          value="yesBills"
         >
           <IoMdHeart />
           Support Voters
         </Tabs.Trigger>
-        <Tabs.Trigger width="100%" justifyContent="center" value="opposedBills">
+        <Tabs.Trigger width="100%" justifyContent="center" value="noBills">
           <IoMdHeartDislike />
           Oppose Voters
         </Tabs.Trigger>
         <Tabs.Indicator />
       </Tabs.List>
-      <Tabs.Content value="supportedBills">
+      <Tabs.Content value="yesBills">
         <Grid gap={2}>
-          {supportedVotes &&
-            supportedVotes.map((vote) => (
-              <VoteResultItem voteResult={vote} showId key={vote.id} />
+          {yesVoters &&
+            yesVoters.map((legislator) => (
+              <LegislatorItem legislator={legislator} key={legislator.id} />
             ))}
         </Grid>
       </Tabs.Content>
-      <Tabs.Content value="opposedBills">
+      <Tabs.Content value="noBills">
         <Grid gap={2}>
-          {opposedVotes &&
-            opposedVotes.map((vote) => (
-              <VoteResultItem voteResult={vote} showId key={vote.id} />
+          {noVoters &&
+            noVoters.map((legislator) => (
+              <LegislatorItem legislator={legislator} key={legislator.id} />
             ))}
         </Grid>
       </Tabs.Content>

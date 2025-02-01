@@ -50,7 +50,7 @@ export const getLegislatorVotes = async (
     `/legislators/${id}/votes`,
     { signal }
   );
-  if (!data) return { supportedVotes: [], noVotes: [] };
+  if (!data) return { yesVotes: [], noVotes: [] };
 
   const mapVotes = (votes: VotesResultsResponse[]) =>
     votes.map(({ legislator_id, vote_id, vote_type, id, bill_title, bill_id }) => ({
@@ -63,7 +63,7 @@ export const getLegislatorVotes = async (
     }));
 
   return {
-    supportedVotes: mapVotes(data.yes_votes),
+    yesVotes: mapVotes(data.yes_votes),
     noVotes: mapVotes(data.no_votes),
   };
 };

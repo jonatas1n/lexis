@@ -47,7 +47,7 @@ export const getBillVotes = async (id: string, signal?: GenericAbortSignal) => {
     `/bills/${id}/votes`,
     { signal }
   );
-  if (!data) return { supportVoters: [], opposeVoters: []}
+  if (!data) return { yesVoters: [], noVoters: []}
 
   const mapVotes = (votes: LegislatorResponse[]) =>
     votes.map(({ id, name, yes_bills, no_bills  }) => ({
@@ -58,7 +58,7 @@ export const getBillVotes = async (id: string, signal?: GenericAbortSignal) => {
     }));
   
   return {
-    supportVoters: mapVotes(data.yes_voters),
-    opposeVoters: mapVotes(data.no_voters),
+    yesVoters: mapVotes(data.yes_voters),
+    noVoters: mapVotes(data.no_voters),
   }
 }

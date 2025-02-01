@@ -12,9 +12,7 @@ def process_legislator(legislator: dict, votes_results: list[dict]):
         if vote_result["legislator_id"] != legislator["id"]:
             continue
 
-        vote_type_key = (
-            "yes_bills" if vote_result["vote_type"] == 1 else "no_bills"
-        )
+        vote_type_key = "yes_bills" if vote_result["vote_type"] == 1 else "no_bills"
         legislator[vote_type_key] += 1
     return legislator
 
@@ -63,9 +61,11 @@ class LegislatorServices:
                 continue
             vote = VoteServices.get_by_id(vote_result["vote_id"])
             bill = BillServices.get_by_id(vote["bill_id"])
-            vote_result = {**vote_result, "bill_title": bill["title"], "bill_id": bill["id"]}
-            vote_type_key = (
-                "yes_votes" if vote_result["vote_type"] == 1 else "no_votes"
-            )
+            vote_result = {
+                **vote_result,
+                "bill_title": bill["title"],
+                "bill_id": bill["id"],
+            }
+            vote_type_key = "yes_votes" if vote_result["vote_type"] == 1 else "no_votes"
             legislator_votes_results[vote_type_key].append(vote_result)
         return legislator_votes_results

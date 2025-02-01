@@ -12,8 +12,19 @@ export const LegislatorItem = ({ legislator }: LegislatorItemType) => {
   const handleClick = () => setSelectedLegislator(legislator.id.toString());
 
   return (
-    <Card.Root variant="subtle" onClick={handleClick} size="sm" _hover={{cursor: "pointer"}}>
-      <Card.Body display="grid" gridTemplateColumns="auto 8rem" gap={2} alignItems="center" p={1}>
+    <Card.Root
+      variant="subtle"
+      onClick={handleClick}
+      size="sm"
+      _hover={{ cursor: "pointer" }}
+    >
+      <Card.Body
+        display="grid"
+        gridTemplateColumns="auto 8rem"
+        gap={2}
+        alignItems="center"
+        p={1}
+      >
         <Text>{legislator.name}</Text>
         <VoteCounter
           nayMessage="Votes against pieces of legislation."

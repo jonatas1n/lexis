@@ -16,7 +16,7 @@ class LegislatorController:
         if not legislator:
             raise HTTPException(status_code=404, detail=NOT_FOUND_MESSAGE)
         return legislator
-    
+
     def get_votes(legislator_id: str):
         legislator_votes = LegislatorServices.get_votes(legislator_id)
         return legislator_votes

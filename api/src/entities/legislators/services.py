@@ -11,7 +11,7 @@ def process_legislator(legislator: dict, votes_results: list[dict]):
     for vote_result in votes_results:
         if vote_result["legislator_id"] != legislator["id"]:
             continue
-        
+
         vote_type_key = (
             "supported_bills" if vote_result["vote_type"] == 1 else "opposed_bills"
         )

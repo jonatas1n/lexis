@@ -12,7 +12,12 @@ export const BillItem = ({ bill }: BillItemType) => {
   const handleClick = () => setSelectedBill(bill.id.toString());
 
   return (
-    <Card.Root variant="subtle" onClick={handleClick} size="sm" _hover={{cursor: "pointer"}}>
+    <Card.Root
+      variant="subtle"
+      onClick={handleClick}
+      size="sm"
+      _hover={{ cursor: "pointer" }}
+    >
       <Card.Body
         display="grid"
         gridTemplateColumns="auto 8rem"

@@ -53,14 +53,16 @@ export const getLegislatorVotes = async (
   if (!data) return { yesVotes: [], noVotes: [] };
 
   const mapVotes = (votes: VotesResultsResponse[]) =>
-    votes.map(({ legislator_id, vote_id, vote_type, id, bill_title, bill_id }) => ({
-      id: parseInt(id),
-      legislatorId: parseInt(legislator_id),
-      voteId: parseInt(vote_id),
-      voteType: parseInt(vote_type),
-      billTitle: bill_title,
-      billId: parseInt(bill_id),
-    }));
+    votes.map(
+      ({ legislator_id, vote_id, vote_type, id, bill_title, bill_id }) => ({
+        id: parseInt(id),
+        legislatorId: parseInt(legislator_id),
+        voteId: parseInt(vote_id),
+        voteType: parseInt(vote_type),
+        billTitle: bill_title,
+        billId: parseInt(bill_id),
+      })
+    );
 
   return {
     yesVotes: mapVotes(data.yes_votes),

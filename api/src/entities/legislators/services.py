@@ -7,6 +7,9 @@ from .repositories import LegislatorRepository
 
 
 def process_legislator(legislator: dict, votes_results: list[dict]):
+    if not legislator:
+        return legislator
+
     legislator = {**legislator, "yes_bills": 0, "no_bills": 0}
     for vote_result in votes_results:
         if vote_result["legislator_id"] != legislator["id"]:

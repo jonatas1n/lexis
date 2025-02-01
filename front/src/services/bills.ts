@@ -37,6 +37,7 @@ export const getBill = async (id: string, signal?: GenericAbortSignal) => {
     id: parseInt(data.id),
     title: data.title,
     sponsorId: parseInt(data.sponsor_id),
+    sponsorName: data.sponsor_name,
     noVotes: data.no_votes,
     yesVotes: data.yes_votes,
   };

@@ -2,11 +2,10 @@ import { createContext, useState, PropsWithChildren, useContext } from "react";
 
 type AppContextType = {
   selectedLegislator: string;
-  setSelectedLegislator: (legislatorId: string) => void;
-  clearSelectedLegislator: VoidFunction;
+  updateLegislator: (legislatorId: string) => void;
+  clearSelected: VoidFunction;
   selectedBill: string;
-  setSelectedBill: (billId: string) => void;
-  clearSelectedBill: VoidFunction;
+  updateBill: (billId: string) => void;
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -15,23 +14,29 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [selectedLegislator, setSelectedLegislator] = useState("");
   const [selectedBill, setSelectedBill] = useState("");
 
-  const clearSelectedLegislator = () => {
+  const clearSelected = () => {
     setSelectedLegislator("");
+    setSelectedBill("");
   };
 
-  const clearSelectedBill = () => {
-    setSelectedBill("");
+  const updateLegislator = (id: string) => {
+    clearSelected();
+    setSelectedLegislator(id);
+  };
+
+  const updateBill = (id: string) => {
+    clearSelected();
+    setSelectedBill(id);
   };
 
   return (
     <AppContext.Provider
       value={{
         selectedLegislator,
-        setSelectedLegislator,
-        clearSelectedLegislator,
+        updateLegislator,
+        clearSelected,
         selectedBill,
-        setSelectedBill,
-        clearSelectedBill,
+        updateBill,
       }}
     >
       {children}

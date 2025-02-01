@@ -13,7 +13,7 @@ import { BillProfile } from "./BillProfile";
 import { BillVotes } from "./BillVotes";
 
 export const BillsModal = () => {
-  const { selectedBill, clearSelectedBill } = useAppContext();
+  const { selectedBill, clearSelected } = useAppContext();
   const { data: bill, isLoading } = useBill(selectedBill ?? "");
   const { yesVotes, noVotes } = bill ?? {};
 
@@ -27,7 +27,7 @@ export const BillsModal = () => {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogCloseTrigger onClick={clearSelectedBill} />
+          <DialogCloseTrigger onClick={clearSelected} />
         </DialogHeader>
         {!isLoading && bill ? (
           <DialogBody>

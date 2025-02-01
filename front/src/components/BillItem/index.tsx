@@ -8,8 +8,8 @@ type BillItemType = {
 };
 
 export const BillItem = ({ bill }: BillItemType) => {
-  const { setSelectedBill } = useAppContext();
-  const handleClick = () => setSelectedBill(bill.id.toString());
+  const { updateBill } = useAppContext();
+  const handleClick = () => updateBill(bill.id.toString());
 
   return (
     <Card.Root

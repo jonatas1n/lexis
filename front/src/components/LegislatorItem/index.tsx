@@ -8,8 +8,8 @@ type LegislatorItemType = {
 };
 
 export const LegislatorItem = ({ legislator }: LegislatorItemType) => {
-  const { setSelectedLegislator } = useAppContext();
-  const handleClick = () => setSelectedLegislator(legislator.id.toString());
+  const { updateLegislator } = useAppContext();
+  const handleClick = () => updateLegislator(legislator.id.toString());
 
   return (
     <Card.Root

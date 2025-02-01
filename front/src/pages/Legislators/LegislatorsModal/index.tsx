@@ -14,11 +14,11 @@ import { ProgresBar } from "@/components/ProgressBar";
 import { useAppContext } from "@/hooks/context";
 
 export const LegislatorsModal = () => {
-  const { selectedLegislator, clearSelectedLegislator } = useAppContext();
+  const { selectedLegislator, clearSelected } = useAppContext();
   const { data: legislator, isLoading } = useLegislator(
     selectedLegislator ?? ""
   );
-  const {yesBills, noBills} = legislator ?? {};
+  const { yesBills, noBills } = legislator ?? {};
 
   return (
     <DialogRoot
@@ -30,7 +30,7 @@ export const LegislatorsModal = () => {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogCloseTrigger onClick={clearSelectedLegislator} />
+          <DialogCloseTrigger onClick={clearSelected} />
         </DialogHeader>
         {!isLoading && legislator ? (
           <DialogBody>
@@ -38,7 +38,7 @@ export const LegislatorsModal = () => {
               <GridItem>
                 <Grid gap={4}>
                   <LegislatorProfile legislator={legislator} />
-                  <ProgresBar yesCount={yesBills} noCount={noBills} />
+                  <ProgresBar yesCount={yesBills ?? 0} noCount={noBills ?? 0} />
                 </Grid>
               </GridItem>
               <Separator />

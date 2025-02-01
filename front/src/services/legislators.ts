@@ -35,10 +35,13 @@ export const getLegislator = async (
     { signal }
   );
 
+  const { id: legislator_id, no_bills, yes_bills, ...legislator } = data;
+
   return {
-    ...data,
-    noBills: data.no_bills,
-    yesBills: data.yes_bills,
+    ...legislator,
+    id: parseInt(legislator_id),
+    noBills: parseInt(no_bills),
+    yesBills: parseInt(yes_bills),
   };
 };
 

@@ -6,6 +6,7 @@ import { Provider } from "./components/ui/provider";
 import { LegislatorsModal } from "./pages/Legislators/LegislatorsModal";
 import { BillsModal } from "./pages/Bills/BillsModal";
 import { AppProvider } from "./hooks/context";
+import '@fontsource-variable/outfit';
 
 const queryClient = new QueryClient();
 

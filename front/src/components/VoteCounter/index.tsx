@@ -1,5 +1,5 @@
-import { Grid, Card, Text, Icon } from "@chakra-ui/react";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { Grid, Card, Text } from "@chakra-ui/react";
+import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { Tooltip } from "@/components/ui/tooltip";
 
 type VoteCounterProps = {
@@ -26,7 +26,7 @@ export const VoteCounter = ({
             alignItems="center"
             justifyContent="space-between"
           >
-            <Icon as={AiFillDislike} />
+            <IoMdHeartDislike />
             <Text>{nayCount}</Text>
           </Card.Body>
         </Card.Root>
@@ -40,7 +40,7 @@ export const VoteCounter = ({
             alignItems="center"
             justifyContent="space-between"
           >
-            <AiFillLike />
+            <IoMdHeart />
             {yeaCount}
           </Card.Body>
         </Tooltip>

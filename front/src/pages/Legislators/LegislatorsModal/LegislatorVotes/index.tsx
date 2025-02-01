@@ -17,11 +17,11 @@ export const LegislatorVotes = ({ legislator }: { legislator: Legislator }) => {
           justifyContent="center"
           value="supportedBills"
         >
-          <AiFillLike />
+          <IoMdHeart />
           Support Votes
         </Tabs.Trigger>
         <Tabs.Trigger width="100%" justifyContent="center" value="opposedBills">
-          <AiFillDislike />
+          <IoMdHeartDislike />
           Oppose Votes
         </Tabs.Trigger>
         <Tabs.Indicator />

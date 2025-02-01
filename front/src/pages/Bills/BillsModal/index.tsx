@@ -61,7 +61,7 @@ export const BillsModal = () => {
                       justifyContent="center"
                       value="opposedBills"
                     >
-                      <AiFillDislike />
+                      <IoMdHeartDislike />
                       Oppose Votes
                     </Tabs.Trigger>
                     <Tabs.Trigger
@@ -69,7 +69,7 @@ export const BillsModal = () => {
                       justifyContent="center"
                       value="supportedBills"
                     >
-                      <AiFillLike />
+                      <IoMdHeart />
                       Support Votes
                     </Tabs.Trigger>
                     <Tabs.Indicator />

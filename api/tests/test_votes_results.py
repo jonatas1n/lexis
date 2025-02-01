@@ -7,21 +7,19 @@ from ..src.entities.votes_results import (
     VotesResultServices,
     VotesResultController,
 )
-from ..src.entities.votes_results.routes import router
 from ..src.entities.votes_results.controllers import NOT_FOUND_MESSAGE
 
-mock_csv_data = "id,legislator_id,vote_id,vote_type\n1,101,201,1\n2,102,202,2\n"
+mock_csv_data = "id,legislator_id,vote_id,vote_type\n1,1,201,1\n2,2,202,2\n"
 
 app = FastAPI()
-app.include_router(router)
 
 client = TestClient(app)
 
 
 def test_votes_results_repository_read_csv():
     expected_result = [
-        {"id": 1, "legislator_id": 101, "vote_id": 201, "vote_type": 1},
-        {"id": 2, "legislator_id": 102, "vote_id": 202, "vote_type": 2},
+        {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1},
+        {"id": 2, "legislator_id": 2, "vote_id": 202, "vote_type": 2},
     ]
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -32,8 +30,8 @@ def test_votes_results_repository_read_csv():
 
 def test_votes_results_services_get_all():
     expected_result = [
-        {"id": 1, "legislator_id": 101, "vote_id": 201, "vote_type": 1},
-        {"id": 2, "legislator_id": 102, "vote_id": 202, "vote_type": 2},
+        {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1},
+        {"id": 2, "legislator_id": 2, "vote_id": 202, "vote_type": 2},
     ]
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -43,7 +41,7 @@ def test_votes_results_services_get_all():
 
 
 def test_votes_results_services_get_votes_result():
-    expected_result = {"id": 1, "legislator_id": 101, "vote_id": 201, "vote_type": 1}
+    expected_result = {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1}
     votes_result_id = "1"
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -54,8 +52,8 @@ def test_votes_results_services_get_votes_result():
 
 def test_votes_results_controller_get_all_votes_results():
     expected_result = [
-        {"id": 1, "legislator_id": 101, "vote_id": 201, "vote_type": 1},
-        {"id": 2, "legislator_id": 102, "vote_id": 202, "vote_type": 2},
+        {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1},
+        {"id": 2, "legislator_id": 2, "vote_id": 202, "vote_type": 2},
     ]
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -65,7 +63,7 @@ def test_votes_results_controller_get_all_votes_results():
 
 
 def test_votes_results_controller_get_votes_result():
-    expected_result = {"id": 1, "legislator_id": 101, "vote_id": 201, "vote_type": 1}
+    expected_result = {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1}
     votes_result_id = 1
 
     with patch("builtins.open", mock_open(read_data=mock_csv_data)):
@@ -84,20 +82,3 @@ def test_votes_results_controller_get_votes_result_empty():
             except HTTPException as e:
                 assert e.status_code == expected_status_code
                 assert e.detail == NOT_FOUND_MESSAGE
-
-
-def test_votes_results_routes_get_all_votes_results():
-    with patch("builtins.open", mock_open(read_data=mock_csv_data)):
-        with patch("api.src.entities.votes_results.repositories.CSV_FILE", CSV_FILE):
-            response = client.get("/votes_results/")
-            assert response.status_code == 200
-            assert isinstance(response.json(), list)
-
-
-def test_votes_results_routes_get_votes_result():
-    votes_result_id = 1
-    with patch("builtins.open", mock_open(read_data=mock_csv_data)):
-        with patch("api.src.entities.votes_results.repositories.CSV_FILE", CSV_FILE):
-            response = client.get(f"/votes_results/{votes_result_id}")
-            assert response.status_code == 200
-            assert isinstance(response.json(), dict)

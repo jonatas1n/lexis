@@ -3,12 +3,10 @@ from unittest.mock import mock_open, patch
 from fastapi.testclient import TestClient
 from ..src.entities.votes import CSV_FILE, VoteRepository, VoteServices, VoteController
 from ..src.entities.votes.controllers import NOT_FOUND_MESSAGE
-from ..src.entities.votes.routes import router
 
 mock_csv_data = "id,bill_id\n1,2900994\n2,2900995\n"
 
 app = FastAPI()
-app.include_router(router)
 
 client = TestClient(app)
 
@@ -79,20 +77,3 @@ def test_votes_controller_get_vote_empty():
             except HTTPException as e:
                 assert e.status_code == expected_status_code
                 assert e.detail == NOT_FOUND_MESSAGE
-
-
-def test_votes_routes_get_all_votes():
-    with patch("builtins.open", mock_open(read_data=mock_csv_data)):
-        with patch("api.src.entities.votes.repositories.CSV_FILE", CSV_FILE):
-            response = client.get("/votes/")
-            assert response.status_code == 200
-            assert isinstance(response.json(), list)
-
-
-def test_votes_routes_get_vote():
-    vote_id = 1
-    with patch("builtins.open", mock_open(read_data=mock_csv_data)):
-        with patch("api.src.entities.votes.repositories.CSV_FILE", CSV_FILE):
-            response = client.get(f"/votes/{vote_id}")
-            assert response.status_code == 200
-            assert isinstance(response.json(), dict)

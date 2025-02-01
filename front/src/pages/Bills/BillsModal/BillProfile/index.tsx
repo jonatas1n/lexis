@@ -1,12 +1,15 @@
 import { Flex, Text, Badge, Avatar } from "@chakra-ui/react";
 import { Bill } from "@/types";
 import { FaScroll } from "react-icons/fa";
+import { useAppContext } from "@/hooks/context";
 
 type BillProfileProps = {
   bill: Bill;
 };
 
 export const BillProfile = ({ bill }: BillProfileProps) => {
+  const { updateLegislator } = useAppContext();
+  const openSponsorPage = () => updateLegislator(bill.sponsorId.toString());
   return (
     <Flex gap={2} align="center">
       <Avatar.Root size="xl">
@@ -14,11 +17,26 @@ export const BillProfile = ({ bill }: BillProfileProps) => {
           <FaScroll size={28} />
         </Avatar.Fallback>
       </Avatar.Root>
-      <Flex direction="column" align="flex-start">
-        <Text fontWeight="700" fontSize={20}>
-          {bill.title}
-        </Text>
-        <Badge>#{bill.id}</Badge>
+      <Flex direction="column" gap={2}>
+        <Flex direction="column" align="flex-start">
+          <Badge>#{bill.id}</Badge>
+          <Text fontWeight="700" fontSize={20}>
+            {bill.title}
+          </Text>
+        </Flex>
+        {bill.sponsorName && (
+          <Flex gap={1}>
+            <Text>Primary Sponsor:</Text>
+            <Text
+              onClick={openSponsorPage}
+              fontSize={16}
+              fontWeight="600"
+              textDecoration="underline"
+            >
+              {bill.sponsorName}
+            </Text>
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );

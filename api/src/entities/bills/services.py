@@ -8,6 +8,8 @@ from .repositories import BillRepository
 
 
 def process_bill(bill: dict, votes: list[dict], votes_results: list[dict]):
+    if not bill:
+        return bill
     bill = {**bill, "no_votes": 0, "yes_votes": 0}
     bill_votes = [vote["id"] for vote in votes if vote["bill_id"] == bill["id"]]
     if not bill_votes:

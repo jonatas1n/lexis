@@ -1,39 +1,33 @@
-import { Grid, Text, Button } from "@chakra-ui/react";
+import { Card, Text } from "@chakra-ui/react";
 import { Bill } from "@/types";
 import { VoteCounter } from "../VoteCounter";
 import { useAppContext } from "@/hooks/context";
 
 type BillItemType = {
   bill: Bill;
-  showId?: boolean;
 };
 
-export const BillItem = ({ bill, showId }: BillItemType) => {
+export const BillItem = ({ bill }: BillItemType) => {
   const { setSelectedBill } = useAppContext();
   const handleClick = () => setSelectedBill(bill.id.toString());
 
   return (
-    <Grid
-      as={Button}
-      onClick={handleClick}
-      color="black"
-      bgColor="#eee"
-      p={2}
-      borderRadius={8}
-      alignContent="center"
-      justifyContent="space-between"
-      templateColumns="auto 8rem"
-    >
-      <Grid gap={2} templateColumns="6rem auto">
-        {showId && <Text fontStyle="italic">#{bill.id}</Text>}
+    <Card.Root variant="subtle" onClick={handleClick} size="sm" _hover={{cursor: "pointer"}}>
+      <Card.Body
+        display="grid"
+        gridTemplateColumns="auto 8rem"
+        gap={2}
+        alignItems="center"
+        p={1}
+      >
         <Text>{bill.title}</Text>
-      </Grid>
-      <VoteCounter
-        nayMessage="Votes against this piece of legislation."
-        yeaMessage="Votes for this piece of legislation."
-        nayCount={bill.opposedVotes}
-        yeaCount={bill.supportVotes}
-      />
-    </Grid>
+        <VoteCounter
+          nayMessage="Votes against this piece of legislation."
+          yeaMessage="Votes for this piece of legislation."
+          nayCount={bill.opposedVotes}
+          yeaCount={bill.supportVotes}
+        />
+      </Card.Body>
+    </Card.Root>
   );
 };

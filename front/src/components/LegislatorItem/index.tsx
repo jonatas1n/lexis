@@ -1,42 +1,27 @@
-import { Grid, Text, Button } from "@chakra-ui/react";
+import { Text, Card } from "@chakra-ui/react";
 import { Legislator } from "@/types";
 import { VoteCounter } from "../VoteCounter";
 import { useAppContext } from "@/hooks/context";
 
 type LegislatorItemType = {
   legislator: Legislator;
-  showId?: boolean;
 };
 
-export const LegislatorItem = ({
-  legislator,
-  showId,
-}: LegislatorItemType) => {
+export const LegislatorItem = ({ legislator }: LegislatorItemType) => {
   const { setSelectedLegislator } = useAppContext();
   const handleClick = () => setSelectedLegislator(legislator.id.toString());
 
   return (
-    <Grid
-      as={Button}
-      onClick={handleClick}
-      color="black"
-      bgColor="#eee"
-      p={2}
-      borderRadius={8}
-      alignContent="center"
-      justifyContent="space-between"
-      templateColumns="auto 8rem"
-    >
-      <Grid gap={2} templateColumns="6rem auto">
-        {showId && <Text fontStyle="italic">#{legislator.id}</Text>}
+    <Card.Root variant="subtle" onClick={handleClick} size="sm" _hover={{cursor: "pointer"}}>
+      <Card.Body display="grid" gridTemplateColumns="auto 8rem" gap={2} alignItems="center" p={1}>
         <Text>{legislator.name}</Text>
-      </Grid>
-      <VoteCounter
-        nayMessage="Votes against pieces of legislation."
-        yeaMessage="Votes for pieces of legislation."
-        nayCount={legislator.opposedBills}
-        yeaCount={legislator.supportedBills}
-      />
-    </Grid>
+        <VoteCounter
+          nayMessage="Votes against pieces of legislation."
+          yeaMessage="Votes for pieces of legislation."
+          nayCount={legislator.opposedBills}
+          yeaCount={legislator.supportedBills}
+        />
+      </Card.Body>
+    </Card.Root>
   );
 };

@@ -23,7 +23,7 @@ export const VoteCounter = ({
           justify="space-between"
           bgColor="black"
           color="white"
-          px={1}
+          p={1}
           borderRadius={4}
           gap={1}
         >
@@ -37,7 +37,7 @@ export const VoteCounter = ({
           justify="space-between"
           bgColor="black"
           color="white"
-          px={1}
+          p={1}
           borderRadius={4}
           gap={1}
         >

@@ -8,34 +8,29 @@ import { useDebounce } from "react-use";
 import { useLegislators } from "@/hooks/api/queries/legislators";
 import { LegislatorItem } from "@/components/LegislatorItem";
 
-import { LegislatorsModal } from "./LegislatorsModal";
-import { Legislator } from "@/types";
+import { mergeURLSearchParams } from "@/utils/uri";
 
 const PAGE_TITLE = "Legislators";
 const SEARCH_QUERY_PARAM = "name";
-const SELECTED_LEGISLATOR_QUERY_PARAM = "selected";
 const DEBOUNCE_PERIOD = 300;
 
 type UpdateQueryProps = Partial<{
   [SEARCH_QUERY_PARAM]: string;
-  [SELECTED_LEGISLATOR_QUERY_PARAM]: string;
 }>;
 
 export const LegislatorsPage = () => {
   const query = useQueryParam();
   const navigate = useNavigate();
+  
   const querySearchTerm = useMemo(
     () => query.get(SEARCH_QUERY_PARAM) ?? "",
     [query]
   );
 
-  const selectedLegislator =
-    query.get(SELECTED_LEGISLATOR_QUERY_PARAM) ?? undefined;
   const [searchTerm, setSearchTerm] = useState(querySearchTerm);
-
   const updateQuery = useCallback(
     (props: UpdateQueryProps) => {
-      const newSearch = new URLSearchParams({ ...query, ...props }).toString();
+      const newSearch = mergeURLSearchParams(query, { ...props }).toString();
       navigate({ ...location, search: newSearch }, { replace: true });
     },
     [query, navigate]
@@ -43,7 +38,9 @@ export const LegislatorsPage = () => {
 
   useDebounce(
     () => {
-      updateQuery({ [SEARCH_QUERY_PARAM]: searchTerm });
+      updateQuery({
+        [SEARCH_QUERY_PARAM]: searchTerm,
+      });
     },
     DEBOUNCE_PERIOD,
     [searchTerm]
@@ -67,20 +64,8 @@ export const LegislatorsPage = () => {
 
   const { data: legislators, isLoading } = useLegislators(queryParams);
 
-  const selectLegislator = (legislator: Legislator["id"]) =>
-    updateQuery({
-      ...query,
-      [SELECTED_LEGISLATOR_QUERY_PARAM]: legislator.toString(),
-    });
-  const clearSelected = () =>
-    updateQuery({ ...query, [SELECTED_LEGISLATOR_QUERY_PARAM]: "" });
-
   return (
     <PageBoxLayout>
-      <LegislatorsModal
-        legislatorId={selectedLegislator}
-        onClose={clearSelected}
-      />
       <Grid alignContent="flex-start" gap={4} h="100%">
         <Flex align="center" justify="space-between" px={2}>
           <Text fontWeight="800" fontSize={24}>
@@ -100,7 +85,6 @@ export const LegislatorsPage = () => {
           {!isLoading && legislators ? (
             legislators.map((legislator) => (
               <LegislatorItem
-                onClick={() => selectLegislator(legislator.id.toString())}
                 showId
                 legislator={legislator}
                 key={legislator.id}
@@ -110,6 +94,11 @@ export const LegislatorsPage = () => {
             <Flex justify="center" align="center">
               <Spinner />
             </Flex>
+          )}
+          {!isLoading && legislators?.length === 0 && (
+            <Text pt={8} textAlign="center">
+              Não foram encontrados resultados para a sua busca
+            </Text>
           )}
         </Grid>
       </Grid>

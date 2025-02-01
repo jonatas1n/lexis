@@ -1,26 +1,29 @@
 import { Grid, Text, Button } from "@chakra-ui/react";
 import { Legislator } from "@/types";
 import { VoteCounter } from "../VoteCounter";
+import { useAppContext } from "@/hooks/context";
 
 type LegislatorItemType = {
   legislator: Legislator;
   showId?: boolean;
-  onClick?: VoidFunction;
 };
 
 export const LegislatorItem = ({
   legislator,
   showId,
-  onClick,
 }: LegislatorItemType) => {
+  const { setSelectedLegislator } = useAppContext();
+  const handleClick = () => setSelectedLegislator(legislator.id.toString());
+
   return (
     <Grid
       as={Button}
-      onClick={onClick}
+      onClick={handleClick}
       color="black"
       bgColor="#eee"
       p={2}
       borderRadius={8}
+      alignContent="center"
       justifyContent="space-between"
       templateColumns="auto 8rem"
     >

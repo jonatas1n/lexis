@@ -7,13 +7,13 @@ from .repositories import LegislatorRepository
 
 
 def process_legislator(legislator: dict, votes_results: list[dict]):
-    legislator = {**legislator, "supported_bills": 0, "opposed_bills": 0}
+    legislator = {**legislator, "yes_bills": 0, "no_bills": 0}
     for vote_result in votes_results:
         if vote_result["legislator_id"] != legislator["id"]:
             continue
 
         vote_type_key = (
-            "supported_bills" if vote_result["vote_type"] == 1 else "opposed_bills"
+            "yes_bills" if vote_result["vote_type"] == 1 else "no_bills"
         )
         legislator[vote_type_key] += 1
     return legislator
@@ -55,7 +55,7 @@ class LegislatorServices:
     def get_votes(legislator_id: str):
         legislator_id = int(legislator_id)
         votes_results = VotesResultRepository.read_csv()
-        legislator_votes_results = {"supported_votes": [], "opposed_votes": []}
+        legislator_votes_results = {"yes_votes": [], "no_votes": []}
         for vote_result in votes_results:
             if vote_result["legislator_id"] != legislator_id:
                 continue
@@ -63,7 +63,7 @@ class LegislatorServices:
             bill = BillServices.get_by_id(vote["bill_id"])
             vote_result = {**vote_result, "bill_title": bill["title"], "bill_id": bill["id"]}
             vote_type_key = (
-                "supported_votes" if vote_result["vote_type"] == 1 else "opposed_votes"
+                "yes_votes" if vote_result["vote_type"] == 1 else "no_votes"
             )
             legislator_votes_results[vote_type_key].append(vote_result)
         return legislator_votes_results

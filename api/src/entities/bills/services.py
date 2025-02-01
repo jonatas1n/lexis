@@ -6,7 +6,7 @@ from .repositories import BillRepository
 
 
 def process_bill(bill: dict, votes: list[dict], votes_results: list[dict]):
-    bill = {**bill, "opposed_votes": 0, "support_votes": 0}
+    bill = {**bill, "no_votes": 0, "yes_votes": 0}
     bill_votes = [vote["id"] for vote in votes if vote["bill_id"] == bill["id"]]
     if not bill_votes:
         return bill
@@ -20,7 +20,7 @@ def process_bill(bill: dict, votes: list[dict], votes_results: list[dict]):
         return bill
 
     for vote in bill_votes_results:
-        vote_type = "support_votes" if vote["vote_type"] == 1 else "opposed_votes"
+        vote_type = "yes_votes" if vote["vote_type"] == 1 else "no_votes"
         bill[vote_type] += 1
     return bill
 

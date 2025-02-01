@@ -1,3 +1,5 @@
+import { Legislator, LegislatorResponse } from "./legislators";
+
 export type Bill = {
   id: number;
   title: string;
@@ -14,9 +16,12 @@ export type BillResponse = {
   no_votes: number;
 };
 
-export interface BillPageResult {
-  results: Bill[];
-  total: number;
-  offset: number;
-  limit: number;
-}
+export type BillVotesListResponse = {
+  yes_voters: LegislatorResponse[];
+  no_voters: LegislatorResponse[];
+};
+
+export type BillVotesList = {
+  yesVoters: Legislator[];
+  noVoters: Legislator[];
+};

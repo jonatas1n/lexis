@@ -17,6 +17,10 @@ export const LegislatorItem = ({ legislator }: LegislatorItemType) => {
   };
 
   return (
-    <EntityItem title={legislator.name} onClick={handleClick} {...voteCouterProps} />
+    <EntityItem
+      title={legislator.name}
+      onClick={handleClick}
+      counter={voteCouterProps}
+    />
   );
 };

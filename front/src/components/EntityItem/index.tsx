@@ -3,16 +3,17 @@ import { VoteCounter, VoteCounterProps } from "../VoteCounter";
 
 type EntityItemProps = {
   title: string;
-  onClick: VoidFunction;
-} & VoteCounterProps;
+  onClick?: VoidFunction;
+  counter?: VoteCounterProps;
+};
 
-export const EntityItem = ({ onClick, title, ...voteCouterProps }: EntityItemProps) => {
+export const EntityItem = ({ onClick, title, counter: counterProps }: EntityItemProps) => {
   return (
     <Card.Root
       variant="subtle"
       onClick={onClick}
       size="sm"
-      _hover={{ cursor: "pointer" }}
+      _hover={{ cursor: onClick ? "pointer" : "unset" }}
     >
       <Card.Body
         display="grid"
@@ -22,9 +23,11 @@ export const EntityItem = ({ onClick, title, ...voteCouterProps }: EntityItemPro
         p={1}
       >
         <Text>{title}</Text>
-        <VoteCounter
-          {...voteCouterProps}
-        />
+        {counterProps &&
+          <VoteCounter
+            {...counterProps}
+          />
+        }
       </Card.Body>
     </Card.Root>
   );

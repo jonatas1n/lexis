@@ -17,6 +17,10 @@ export const BillItem = ({ bill }: BillItemType) => {
   };
 
   return (
-    <EntityItem title={bill.title} onClick={handleClick} {...voteCouterProps} />
+    <EntityItem
+      title={bill.title}
+      onClick={handleClick}
+      counter={voteCouterProps}
+    />
   );
 };

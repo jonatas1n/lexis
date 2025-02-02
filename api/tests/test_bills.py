@@ -33,6 +33,15 @@ def mock_votes():
     ]
 
 
+@pytest.fixture
+def mock_votes_results():
+    return [
+        {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1},
+        {"id": 2, "legislator_id": 1, "vote_id": 202, "vote_type": 2},
+        {"id": 3, "legislator_id": 2, "vote_id": 203, "vote_type": 1},
+    ]
+
+
 def test_bills_repository_read_csv():
     expected_result = [
         {"id": 1, "title": "Test Bill", "sponsor_id": 1},
@@ -48,11 +57,18 @@ def test_bills_repository_read_csv():
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_services_get_all(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
 
     result = BillServices.get_all()
     assert len(result) == 3
@@ -60,11 +76,18 @@ def test_bills_services_get_all(
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_service_get_all_with_title(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
 
     result = BillServices.get_all(title="Another")
     assert len(result) == 1
@@ -72,8 +95,19 @@ def test_bills_service_get_all_with_title(
 
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
-def test_bills_service_get_by_id(mock_read_bills, mock_bills):
+@patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
+def test_bills_service_get_by_id(
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
+):
     mock_read_bills.return_value = mock_bills
+    mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
 
     result = BillServices.get_by_id(1)
     assert result["id"] == 1
@@ -87,11 +121,18 @@ def test_bills_service_get_by_id(mock_read_bills, mock_bills):
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_controller_get_all_bills(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
 
     result = BillController.get_all_bills()
     assert result[0]["title"] == "Bill 1"
@@ -99,11 +140,18 @@ def test_bills_controller_get_all_bills(
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_controller_get_bill(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
     expected_result = {
         "id": 1,
         "title": "Bill 1",
@@ -119,11 +167,18 @@ def test_bills_controller_get_bill(
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_controller_get_bill_empty(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
     bill_id = 4
     expected_status_code = 404
 
@@ -136,11 +191,18 @@ def test_bills_controller_get_bill_empty(
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_routes_get_all_bills(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
     response = client.get("/bills/")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
@@ -148,11 +210,18 @@ def test_bills_routes_get_all_bills(
 
 @patch("api.src.entities.bills.repositories.BillRepository.read_csv")
 @patch("api.src.entities.votes.repositories.VoteRepository.read_csv")
+@patch("api.src.entities.votes_results.repositories.VotesResultRepository.read_csv")
 def test_bills_routes_get_bill(
-    mock_read_votes, mock_read_bills, mock_bills, mock_votes
+    mock_read_votes_results,
+    mock_read_votes,
+    mock_read_bills,
+    mock_bills,
+    mock_votes,
+    mock_votes_results,
 ):
     mock_read_bills.return_value = mock_bills
     mock_read_votes.return_value = mock_votes
+    mock_read_votes_results.return_value = mock_votes_results
     bill_id = 1
 
     response = client.get(f"/bills/{bill_id}")

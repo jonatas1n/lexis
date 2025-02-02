@@ -62,7 +62,7 @@ export const BillsPage = () => {
   const { data: bills, isLoading } = useBills(queryParams);
 
   return (
-    <PageBoxLayout>
+    <PageBoxLayout goto={{link: "/legislators", label: "Legislators"}}>
       <Flex
         align="center"
         justify="space-between"

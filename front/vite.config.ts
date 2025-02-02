@@ -1,16 +1,18 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const API_URL="http://localhost:8000";
+const FALLBACK_API_URL = 'http://localhost:8000'
+
+const API_URL = process.env.API_URL ?? FALLBACK_API_URL;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   server: {
@@ -19,10 +21,10 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       '/api': {
-        target: API_URL || 'http://api:8000',
+        target: API_URL,
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    }
-  }
-})
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+});

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 const FALLBACK_API_URL = 'http://localhost:8000'
 
-const API_URL = process.env.API_URL ?? FALLBACK_API_URL;
+const API_URL = process.env.VITE_API_URL ?? FALLBACK_API_URL;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({

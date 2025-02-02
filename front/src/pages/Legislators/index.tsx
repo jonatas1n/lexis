@@ -65,16 +65,16 @@ export const LegislatorsPage = () => {
   const { data: legislators, isLoading } = useLegislators(queryParams);
 
   return (
-    <PageBoxLayout goto={{link: "/bills", label: "Bills"}}>
+    <PageBoxLayout goto={{ link: "/bills", label: "Bills" }}>
       <Grid alignContent="flex-start" gap={4} h="100%">
         <Flex
-          align="center"
+          align="stretch"
           justify="space-between"
           direction={{ lg: "row", base: "column" }}
           mb={4}
           gap={4}
         >
-          <Text fontWeight="800" fontSize={24}>
+          <Text textAlign="center" fontWeight="800" fontSize={24}>
             {PAGE_TITLE}
           </Text>
           <SearchInput

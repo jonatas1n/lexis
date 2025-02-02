@@ -1,5 +1,6 @@
 import { Flex, FlexProps, Spinner, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { NOT_FOUND_MESSAGE, ERROR_MESSAGE } from "@/constants";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },

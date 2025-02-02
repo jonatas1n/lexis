@@ -15,10 +15,18 @@ type BaseListProps<T> = {
   data?: T[];
   renderItem: (item: T) => React.ReactNode;
   isLoading?: boolean;
+  isError?: boolean;
   limit?: number;
 } & FlexProps;
 
-export const BaseList = <T,>({ data, renderItem, isLoading, limit, ...flexProps }: BaseListProps<T>) => {
+export const BaseList = <T,>({
+  data,
+  renderItem,
+  isLoading,
+  isError,
+  limit,
+  ...flexProps
+}: BaseListProps<T>) => {
   const cappedData = data?.slice(0, limit ?? data.length);
   return (
     <Flex height="100%" direction="column" gap={2} {...flexProps}>
@@ -41,7 +49,12 @@ export const BaseList = <T,>({ data, renderItem, isLoading, limit, ...flexProps 
       ) : null}
       {!isLoading && data?.length === 0 && (
         <Flex justify="center" mb={2}>
-          <Text fontStyle="italic">No results found</Text>
+          <Text fontStyle="italic">{NOT_FOUND_MESSAGE}</Text>
+        </Flex>
+      )}
+      {!isError && data?.length === 0 && (
+        <Flex justify="center" mb={2}>
+          <Text fontStyle="italic">{ERROR_MESSAGE}</Text>
         </Flex>
       )}
     </Flex>

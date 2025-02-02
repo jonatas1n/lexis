@@ -60,7 +60,7 @@ export const BillsPage = () => {
 
   const clearTerm = () => setSearchTerm("");
 
-  const { data: bills, isLoading } = useBills(queryParams);
+  const { data: bills, isLoading, isError } = useBills(queryParams);
 
   return (
     <PageBoxLayout goto={{ link: "/legislators", label: "Legislators" }}>
@@ -84,6 +84,7 @@ export const BillsPage = () => {
       </Flex>
       <BaseList
         data={bills}
+        isError={isError}
         renderItem={(bill) => <BillItem bill={bill} key={bill.id} />}
         isLoading={isLoading}
       />

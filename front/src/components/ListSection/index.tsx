@@ -4,6 +4,7 @@ import { BaseList } from "../BaseList";
 type ListSectionProps<T> = {
   data?: T[];
   isLoading: boolean;
+  isError: boolean;
   title: string;
   seeMorePath: string;
   renderItem: (item: T) => React.ReactNode;
@@ -14,6 +15,7 @@ const ITEMS_LIMIT = 10;
 export const ListSection = <T,>({
   data,
   isLoading,
+  isError,
   title,
   renderItem,
   seeMorePath,
@@ -29,7 +31,13 @@ export const ListSection = <T,>({
             See more
           </Link>
         </Flex>
-        <BaseList data={data} isLoading={isLoading} limit={ITEMS_LIMIT} renderItem={renderItem} />
+        <BaseList
+          isError={isError}
+          data={data}
+          isLoading={isLoading}
+          limit={ITEMS_LIMIT}
+          renderItem={renderItem}
+        />
       </Card.Body>
     </Card.Root>
   );

@@ -63,7 +63,7 @@ export const LegislatorsPage = () => {
 
   const clearTerm = () => setSearchTerm("");
 
-  const { data: legislators, isLoading } = useLegislators(queryParams);
+  const { data: legislators, isLoading, isError } = useLegislators(queryParams);
 
   return (
     <PageBoxLayout goto={{ link: "/bills", label: "Bills" }}>
@@ -88,6 +88,7 @@ export const LegislatorsPage = () => {
         </Flex>
         <BaseList
           data={legislators}
+          isError={isError}
           renderItem={(legislator) => (
             <LegislatorItem legislator={legislator} key={legislator.id} />
           )}

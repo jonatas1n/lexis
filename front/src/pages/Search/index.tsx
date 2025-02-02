@@ -64,10 +64,16 @@ export const SearchPage = () => {
     [querySearchTerm]
   );
 
-  const { data: bills, isLoading: isBillsLoading } = useBills(billsQueryParams);
-  const { data: legislators, isLoading: isLegislatorsLoading } = useLegislators(
-    legislatorQueryParams
-  );
+  const {
+    data: bills,
+    isLoading: isBillsLoading,
+    isError: isBillsError,
+  } = useBills(billsQueryParams);
+  const {
+    data: legislators,
+    isLoading: isLegislatorsLoading,
+    isError: isLegislatorsError,
+  } = useLegislators(legislatorQueryParams);
 
   const handleSearchChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -92,8 +98,16 @@ export const SearchPage = () => {
         )}
       </Grid>
       <Grid gap={4} templateColumns={{ lg: "repeat(2, 1fr)", md: "1fr" }}>
-        <BillsList data={bills} isLoading={isBillsLoading} />
-        <LegislatorsList data={legislators} isLoading={isLegislatorsLoading} />
+        <BillsList
+          isError={isBillsError}
+          data={bills}
+          isLoading={isBillsLoading}
+        />
+        <LegislatorsList
+          isError={isLegislatorsError}
+          data={legislators}
+          isLoading={isLegislatorsLoading}
+        />
       </Grid>
     </Flex>
   );

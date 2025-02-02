@@ -13,6 +13,12 @@ Both services are managed via Docker Compose.
 - Docker & Docker Compose
 - Make (optional, but recommended)
 
+## Deployment
+
+This project is deployed using Render for the API and Vercel for the frontend. You can access the live environment at the following link:
+
+[Live Environment](https://lexis-neon.vercel.app/)
+
 ## Setup & Usage
 
 **If you'll run this project locally: Before running any commands, rename the `.env.copy` file in the root directory to `.env.local`.**

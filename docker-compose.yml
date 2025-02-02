@@ -20,4 +20,6 @@ services:
       - /app/dist
       - ./front/package.json:/app/package.json
       - ./front/yarn.lock:/app/yarn.lock
+    env_file:
+      - ./front/.env.local
     command: ["yarn", "dev"]

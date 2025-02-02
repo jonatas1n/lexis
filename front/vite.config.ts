@@ -9,6 +9,7 @@ const API_URL = process.env.API_URL ?? FALLBACK_API_URL;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {

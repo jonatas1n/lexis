@@ -845,6 +845,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource-variable/outfit/-/outfit-5.1.1.tgz#fb3f4ccafbef90e2638f0a1abfe43e526fc5eed4"
   integrity sha512-XuzmITw6zWt3nUINJVAk99f0TgXJ9ZCt3qERAr0t89Em6RbqQ4x6skmxsIgjzkLHVzmoqf3AzCbxvpk/kNnu5A==
 
+"@fontsource/outfit@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/outfit/-/outfit-5.1.1.tgz#d9487122194180699ca3a52d2ede284359de502d"
+  integrity sha512-fe4Ok4ycZFFYIfIbofQ4zortJmM3BHE0vAu6yK6ILJ5sW51mXnyQ+mOPSeCIceGj0rscQOXlA45BNDijOMLCLA==
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"

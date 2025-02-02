@@ -34,9 +34,9 @@ def mock_legislators():
 @pytest.fixture
 def mock_votes_results():
     return [
-        {"legislator_id": 1, "vote_type": 1},
-        {"legislator_id": 1, "vote_type": 2},
-        {"legislator_id": 2, "vote_type": 1},
+        {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1},
+        {"id": 2, "legislator_id": 1, "vote_id": 202, "vote_type": 2},
+        {"id": 3, "legislator_id": 2, "vote_id": 203, "vote_type": 1},
     ]
 
 

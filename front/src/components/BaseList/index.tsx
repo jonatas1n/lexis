@@ -52,7 +52,7 @@ export const BaseList = <T,>({
           <Text fontStyle="italic">{NOT_FOUND_MESSAGE}</Text>
         </Flex>
       )}
-      {!isError && data?.length === 0 && (
+      {isError && (
         <Flex justify="center" mb={2}>
           <Text fontStyle="italic">{ERROR_MESSAGE}</Text>
         </Flex>

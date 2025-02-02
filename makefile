@@ -6,6 +6,9 @@ up:
 attach:
 	docker compose exec api bash
 
+attach-ui:
+	docker compose exec ui sh
+
 # View logs in real-time
 logs:
 	docker compose logs -f

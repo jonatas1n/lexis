@@ -15,7 +15,7 @@ Both services are managed via Docker Compose.
 
 ## Setup & Usage
 
-**Before running any commands, rename the `.env.copy` file in the root directory to `.env`.**
+**If you'll run this project locally: Before running any commands, rename the `.env.copy` file in the root directory to `.env.local`.**
 
 To start the project, run:
 

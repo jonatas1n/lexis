@@ -7,6 +7,7 @@ from ..src.entities.votes_results import (
 
 mock_csv_data = "id,legislator_id,vote_id,vote_type\n1,1,201,1\n2,2,202,2\n"
 
+
 def test_votes_results_repository_read_csv():
     expected_result = [
         {"id": 1, "legislator_id": 1, "vote_id": 201, "vote_type": 1},

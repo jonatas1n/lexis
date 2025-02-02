@@ -25,4 +25,5 @@ lint:
 
 # Run tests using pytest
 test:
-	pytest
+	docker compose exec api pytest
+	docker compose exec ui yarn test

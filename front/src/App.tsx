@@ -7,6 +7,7 @@ import { LegislatorsModal } from "./pages/Legislators/LegislatorsModal";
 import { BillsModal } from "./pages/Bills/BillsModal";
 import { AppProvider } from "./hooks/context";
 import { AnimatePresence, motion } from "framer-motion";
+// @ts-expect-error: Font source does not have type definitions
 import '@fontsource-variable/outfit';
 
 const queryClient = new QueryClient();

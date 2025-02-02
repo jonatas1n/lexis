@@ -1,4 +1,4 @@
-import { Flex, Grid, Spinner, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { useBills } from "@/hooks/api/queries/bills/list-bills";
 import { useState, useMemo, useCallback, ChangeEvent } from "react";
 import { useQueryParam } from "@/hooks/api/queries/query";
@@ -8,6 +8,7 @@ import { useDebounce } from "react-use";
 
 import { BillItem } from "@/components/BillItem";
 import { PageBoxLayout } from "@/components/PageBoxLayout";
+import { BaseList } from "@/components/BaseList";
 
 const PAGE_TITLE = "Bills";
 const SEARCH_QUERY_PARAM = "title";
@@ -81,15 +82,11 @@ export const BillsPage = () => {
           onClear={clearTerm}
         />
       </Flex>
-      <Grid gap={2} alignContent="flex-start" h="100%" overflowY="auto">
-        {!isLoading ? (
-          bills?.map((bill) => <BillItem bill={bill} key={bill.id} />)
-        ) : (
-          <Flex justify="center" align="center">
-            <Spinner />
-          </Flex>
-        )}
-      </Grid>
+      <BaseList
+        data={bills}
+        renderItem={(bill) => <BillItem bill={bill} key={bill.id} />}
+        isLoading={isLoading}
+      />
     </PageBoxLayout>
   );
 };

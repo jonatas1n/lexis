@@ -1,5 +1,5 @@
-import { Card, Flex, Link, Spinner, Text } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { Card, Flex, Link, Text } from "@chakra-ui/react";
+import { BaseList } from "../BaseList";
 
 type ListSectionProps<T> = {
   data?: T[];
@@ -9,7 +9,6 @@ type ListSectionProps<T> = {
   renderItem: (item: T) => React.ReactNode;
 };
 
-const TIMEOUT_PERIOD = 500;
 const ITEMS_LIMIT = 10;
 
 export const ListSection = <T,>({
@@ -19,21 +18,6 @@ export const ListSection = <T,>({
   renderItem,
   seeMorePath,
 }: ListSectionProps<T>) => {
-  const [showSpinner, setShowSpinner] = useState(false);
-  const cappedData = data?.slice(0, ITEMS_LIMIT);
-
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-
-    if (isLoading) {
-      timer = setTimeout(() => setShowSpinner(true), TIMEOUT_PERIOD);
-    } else {
-      setShowSpinner(false);
-    }
-
-    return () => clearTimeout(timer);
-  }, [isLoading]);
-
   return (
     <Card.Root>
       <Card.Body p={{ md: "1.5rem", base: 4 }}>
@@ -45,20 +29,7 @@ export const ListSection = <T,>({
             See more
           </Link>
         </Flex>
-        <Flex height="100%" direction="column" gap={2}>
-          {cappedData && !isLoading ? (
-            cappedData.map(renderItem)
-          ) : showSpinner ? (
-            <Flex align="center" justify="center" height="100%">
-              <Spinner />
-            </Flex>
-          ) : null}
-          {!isLoading && data?.length === 0 && (
-            <Flex justify="center" mb={2}>
-              <Text fontStyle="italic">No results found</Text>
-            </Flex>
-          )}
-        </Flex>
+        <BaseList data={data} isLoading={isLoading} limit={ITEMS_LIMIT} renderItem={renderItem} />
       </Card.Body>
     </Card.Root>
   );

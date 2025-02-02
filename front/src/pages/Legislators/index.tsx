@@ -1,5 +1,5 @@
 import { useMemo, useCallback, ChangeEvent, useState } from "react";
-import { Flex, Text, Grid, Spinner } from "@chakra-ui/react";
+import { Flex, Text, Grid } from "@chakra-ui/react";
 import { PageBoxLayout } from "@/components/PageBoxLayout";
 import { SearchInput } from "@/components/SearchInput";
 import { useQueryParam } from "@/hooks/api/queries/query";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDebounce } from "react-use";
 import { useLegislators } from "@/hooks/api/queries/legislators";
 import { LegislatorItem } from "@/components/LegislatorItem";
+import { BaseList } from "@/components/BaseList";
 
 import { mergeURLSearchParams } from "@/utils/uri";
 
@@ -85,22 +86,13 @@ export const LegislatorsPage = () => {
             onClear={clearTerm}
           />
         </Flex>
-        <Grid gap={2} px={2} alignContent="flex-start" overflowY="auto">
-          {!isLoading && legislators ? (
-            legislators.map((legislator) => (
-              <LegislatorItem legislator={legislator} key={legislator.id} />
-            ))
-          ) : (
-            <Flex justify="center" align="center">
-              <Spinner />
-            </Flex>
+        <BaseList
+          data={legislators}
+          renderItem={(legislator) => (
+            <LegislatorItem legislator={legislator} key={legislator.id} />
           )}
-          {!isLoading && legislators?.length === 0 && (
-            <Text pt={8} textAlign="center">
-              Não foram encontrados resultados para a sua busca
-            </Text>
-          )}
-        </Grid>
+          isLoading={isLoading}
+        />
       </Grid>
     </PageBoxLayout>
   );

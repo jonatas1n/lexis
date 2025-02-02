@@ -2,7 +2,7 @@ import { Grid, Card, Text } from "@chakra-ui/react";
 import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { Tooltip } from "@/components/ui/tooltip";
 
-type VoteCounterProps = {
+export type VoteCounterProps = {
   yeaCount?: number;
   yeaMessage: string;
   nayCount?: number;

@@ -1,7 +1,6 @@
-import { Card, Text } from "@chakra-ui/react";
 import { Bill } from "@/types";
-import { VoteCounter } from "../VoteCounter";
 import { useAppContext } from "@/hooks/context";
+import { EntityItem } from "../EntityItem";
 
 type BillItemType = {
   bill: Bill;
@@ -10,29 +9,14 @@ type BillItemType = {
 export const BillItem = ({ bill }: BillItemType) => {
   const { updateBill } = useAppContext();
   const handleClick = () => updateBill(bill.id.toString());
+  const voteCouterProps = {
+    nayMessage: "Votes against this piece of legislation.",
+    nayCount: bill.noVotes,
+    yeaMessage: "Votes for this piece of legislation.",
+    yeaCount: bill.yesVotes,
+  };
 
   return (
-    <Card.Root
-      variant="subtle"
-      onClick={handleClick}
-      size="sm"
-      _hover={{ cursor: "pointer" }}
-    >
-      <Card.Body
-        display="grid"
-        gridTemplateColumns={{ lg: "auto 8rem", base: "1fr" }}
-        gap={{ md: 2, base: 1 }}
-        alignItems="center"
-        p={1}
-      >
-        <Text>{bill.title}</Text>
-        <VoteCounter
-          nayMessage="Votes against this piece of legislation."
-          yeaMessage="Votes for this piece of legislation."
-          nayCount={bill.noVotes}
-          yeaCount={bill.yesVotes}
-        />
-      </Card.Body>
-    </Card.Root>
+    <EntityItem title={bill.title} onClick={handleClick} {...voteCouterProps} />
   );
 };

@@ -6,8 +6,8 @@ type PageBoxLayoutProps = PropsWithChildren<{
   goto?: {
     link: string;
     label: string;
-  }
-}>
+  };
+}>;
 
 export const PageBoxLayout = ({ children, goto }: PageBoxLayoutProps) => {
   return (
@@ -18,9 +18,17 @@ export const PageBoxLayout = ({ children, goto }: PageBoxLayoutProps) => {
             <Link href="/" justifySelf="start">
               <Logo size={36} justifySelf="center" />
             </Link>
-            {goto && <Link href={goto.link} justifySelf="end" textDecoration="underline">
-              <Text textTransform="uppercase" fontWeight="600">{goto.label}</Text>
-            </Link>}
+            {goto && (
+              <Link
+                href={goto.link}
+                justifySelf="end"
+                textDecoration="underline"
+              >
+                <Text textTransform="uppercase" fontWeight="600">
+                  {goto.label}
+                </Text>
+              </Link>
+            )}
           </Flex>
         </GridItem>
         <Card.Root>

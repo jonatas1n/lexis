@@ -22,6 +22,8 @@ install:
 # Run linter for the API (Black)
 lint:
 	docker compose exec api black .
+	docker compose exec ui yarn eslint --fix
+	docker compose exec ui yarn tsc
 
 # Run tests using pytest
 test:

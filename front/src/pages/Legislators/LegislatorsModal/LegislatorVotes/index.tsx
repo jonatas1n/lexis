@@ -12,11 +12,7 @@ export const LegislatorVotes = ({ legislator }: { legislator: Legislator }) => {
   return (
     <Tabs.Root variant="subtle" defaultValue="yesBills">
       <Tabs.List width="100%" justifyContent="space-between">
-        <Tabs.Trigger
-          width="100%"
-          justifyContent="center"
-          value="yesBills"
-        >
+        <Tabs.Trigger width="100%" justifyContent="center" value="yesBills">
           <IoMdHeart />
           Yes Votes
         </Tabs.Trigger>

@@ -17,9 +17,10 @@ export const useLegislators = ({ name }: Params, options?: OptionType) => {
       const data = await listLegislators({ name }, signal);
 
       return data.map(legislator => ({
-        ...legislator,
-        noBills: legislator.no_bills,
-        yesBills: legislator.yes_bills,
+        id: parseInt(legislator.id),
+        name: legislator.name,
+        noBills: parseInt(legislator.no_bills),
+        yesBills: parseInt(legislator.yes_bills),
       }));
     },
     ...options,

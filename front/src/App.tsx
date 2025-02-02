@@ -58,7 +58,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Provider>
         <AppProvider>
-          <Router>
+          <Router basename="/">
             <Container>
               <AnimatedRoutes />
               <LegislatorsModal />

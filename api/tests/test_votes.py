@@ -3,6 +3,7 @@ from ..src.entities.votes import CSV_FILE, VoteRepository, VoteServices
 
 mock_csv_data = "id,bill_id\n1,2900994\n2,2900995\n"
 
+
 def test_votes_repository_read_csv():
     expected_result = [
         {"id": 1, "bill_id": 2900994},
@@ -35,4 +36,3 @@ def test_votes_services_get_vote():
         with patch("api.src.entities.votes.repositories.CSV_FILE", CSV_FILE):
             result = VoteServices.get_by_id(vote_id)
             assert result == expected_result
-

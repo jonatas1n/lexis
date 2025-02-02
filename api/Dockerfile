@@ -5,8 +5,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY . /app/api
 
-RUN chmod +x /app/run.sh
+WORKDIR /app/api
 
-ENTRYPOINT ["/app/run.sh"]
+RUN chmod +x /app/api/run.sh
+
+ENTRYPOINT ["/app/api/run.sh"]

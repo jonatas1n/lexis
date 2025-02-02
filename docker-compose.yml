@@ -4,10 +4,11 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./api:/app
+      - ./api:/app/api
     environment:
       - PYTHONUNBUFFERED=1
-    entrypoint: ["/app/run.sh"]
+      - PYTHONPATH=/app
+    entrypoint: ["/app/api/run.sh"]
 
   ui:
     build: ./front
